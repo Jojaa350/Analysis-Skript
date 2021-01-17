@@ -1,0 +1,799 @@
+% !TeX spellcheck = en_US %de_DE
+\documentclass[halfparscip]{scrartcl}
+
+%German language
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+%Math
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb, amstext}
+\usepackage{ifsym}
+\usepackage{xfrac}
+%Units
+\usepackage[binary-units]{siunitx}  
+\sisetup{locale = DE,per-mode=fraction} 
+%Logo
+\usepackage[absolute]{textpos}
+\usepackage{graphicx}
+%Better enumeration
+\usepackage{enumitem}
+%Better tables
+\usepackage{tabularx}
+%Graphs and trees
+\usepackage{tikz}
+\usetikzlibrary{trees}
+%Code
+\usepackage{listings}
+\usepackage{lstautogobble}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+%Links
+\usepackage{xcolor}
+\usepackage{hyperref}
+%For redefining tableofcontents to be of black links
+\usepackage{letltxmacro}
+
+
+%Define colors of links
+\definecolor{urlblue}{cmyk}{0.7, 0.3, 0, 0.100}
+\definecolor{linkblue}{cmyk}{0.7, 0.3, 0, 0.250}
+\hypersetup{colorlinks=true, urlcolor={urlblue}, linkcolor=linkblue, allbordercolors=white}
+
+\RedeclareSectionCommand[beforeskip=1.3cm]{section} %increase distance to next section
+
+%Declare further math operators
+\newcommand{\join}[2]{{\tiny \; \textifsym{|><|}}\,_{#1=#2}}
+\DeclareMathOperator*{\bigtimes}{\mathop{\raisebox{-.5ex}{\hbox{\huge{$\times$}}}}}
+\DeclareMathOperator{\nequiv}{\not\equiv}
+\newcommand{\smallvector}[2]{{\big (}{\tiny \begin{matrix} #1\\ #2 \end{matrix}}{\big )}}
+
+\lstset {
+	language=C++,
+	linewidth=100ex, % fits 88 characters 
+	escapechar=§,
+	emph={uint32\_t, uint64\_t},
+	literate={~}{{\footnotesize$\sim$}}1,
+	autogobble=true,
+	keywordstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
+	emphstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
+	identifierstyle=\ttfamily,
+	commentstyle=\ttfamily\color[rgb]{0.133,0.545,0.133},
+	stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+	showstringspaces=false,
+	basicstyle=\ttfamily\small,
+	numberstyle=\footnotesize,
+	numbers=left,
+	stepnumber=1,
+	numbersep=10pt,
+	tabsize=4,
+	breaklines=true,
+	postbreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},
+	breakatwhitespace=true,
+	aboveskip={\baselineskip},
+}
+
+%Makes Links in Table of contents black.
+\LetLtxMacro{\oldtableofcontents}{\tableofcontents}
+\renewcommand{\tableofcontents}{\hypersetup{linkcolor=black}\oldtableofcontents\hypersetup{linkcolor=linkblue}}
+
+\newcounter{subsection2}
+
+% ----------------------------------------------------------------------------------------------------------------------
+
+\title{Analysis für Informatik}
+\subtitle{MA0902}
+\author{Josef Schönberger}
+\date{\today}
+
+%\setcounter{section}{0}
+
+\begin{document}
+%Logo
+\begin{textblock*} {120mm}(150mm,5mm) % first number for hight, next two for position
+	\includegraphics[width=0.4\textwidth]{tum_logo}
+\end{textblock*}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Mengenterminologie}
+\subsection{Teilmenge}
+$B \subseteq A$ gdw. $\forall x \in B$ gilt auch, dass $x \in A$.
+
+\subsection{Injektiv / Surjektiv}
+$f: A \rightarrow B$ ist
+\begin{itemize}
+	\item injektiv, falls $\forall x, y \in A$ mit $x \neq y$ gilt: $f(x) \neq f(y)$
+	\item surjektiv, falls $\forall y \in B$ gilt: $\exists x \in A$, sodass $f(x) = y$
+	\item bijektiv, falls sowohl injektiv und surjektiv
+\end{itemize}
+
+\subsection{Auswahl-Axiom}
+$\exists$ Surjektion von $A$ nach $B$ gdw. $\exists$ Injektion von $B$ nach $A$
+
+\subsection{Exklusivität des Vergleichs der Kardinalität}
+$\forall A, B$ Mengen: Entweder $\vert A\vert \leq \vert B \vert$ oder $\vert A \vert \geq \vert B \vert$
+
+\subsection{Cantor-Bernstein}
+Falls Injektionen $f: A \rightarrow B$ und $g: B \rightarrow A$ existieren, so gibt es eine Bijektion zwischen $A$ und $B$.
+
+\subsection{Abzählbarkeit}
+Menge $A$ heißt abzählbar, falls $\vert A \vert = \vert \mathbb{N} \vert$.\\
+$\aleph_0 = \vert \mathbb{N}\vert$
+
+\newpage
+\section{Reelle Zahlen und Vektoren}
+\subsection{Körper und Anordnung}
+Ein Körper $(F,+,\cdot)$ ist eine Menge $F$ mit den Operationen $+$ und $\cdot$, wobei:
+\begin{enumerate}
+	\item Addition assoziativ
+	\item Addition kommutativ
+	\item Es existiert ein zur Addition neutrales Element $0$
+	\item Es existiert stets ein zur Addition inverses Element
+	\item Multiplikation assoziativ
+	\item Multiplikation kommutativ
+	\item Es existiert ein zur Multiplikation neutrales Element $1$
+	\item Es existiert stets ein zur Multiplikation inverses Element
+	\item Es gilt das Distributionsgesetz
+\end{enumerate}
+%
+Ein Körper heißt angeordnet, falls eine Relation $<$ existiert, sodass $\forall x, y \in F$:
+\begin{enumerate}
+	\item Entweder $x < y$ oder $x = y$ oder $x > y$
+	\item Falls $x, y > 0$, dann $x + y, x \cdot y > 0$
+	\item $x > y$ gdw. $x - y > 0$
+\end{enumerate}
+
+\subsection{Obere / Untere Schranke}
+$x \in \mathbb{R}$ ist eine obere Schranke von $M \subseteq \mathbb{R}$, falls $\forall y \in M$ gilt: $y \leq x$.\\
+Falls ein solches $x$ existiert, so heißt $M$ nach oben beschränkt, sonst nach oben unbeschränkt.\\
+Vergleichbar ist die untere Schranke.
+
+\subsection{Maximum / Minimum}
+$x \in \mathbb{R}$ ist das Maximum von $M \subseteq \mathbb{R}$, falls $x$ obere Schranke von $M$ und $x \in M$.\\
+Vergleichbar ist das Minimum.
+
+\subsection{Supremum / Infimum}
+Das Supremum $\sup(M)$ ist die niedrigste obere Schranke von $M \subseteq \mathbb{R}$. Falls nicht existent, so schreiben wir $\sup(M) = \infty$.\\
+Das Infimum $\inf(M)$ ist die höchste untere Schranke von $M \subseteq \mathbb{R}$. Falls nicht existent, so schreiben wir $\inf(M) = -\infty$.
+
+\subsection{Definition Vollständigkeit}
+Ein angeordneter Körper $K$ ist vollständig, falls $\forall M \subseteq K$ nach oben beschränkte Teilmenge mit $M \neq \emptyset$ ein Supremum besitzt.
+
+\subsection{Vollständigkeitsaxiom}
+$\mathbb{R}$ ist vollständig.
+
+\subsection{Rechenregeln}
+Sein $A, B \in \mathbb{R}$ mit $\sup(A), \sup(B) \in \mathbb{R}$.
+\begin{enumerate}
+	\item $\sup(A + B) = \sup(A) + \sup (B)$\footnote{$A + B = \{a + b \mid a \in A, b \in B\}$}
+	\item $\forall \lambda \geq 0: \sup(\lambda \cdot A) = \lambda \cdot \sup(A)$ \footnote{$\lambda \cdot A = \{\lambda \cdot a \mid a \in A\}$}
+	\item Falls $A, B \subseteq [0,\infty)$: $\sup(A \cdot B) = \sup(A) \cdot \sup(B)$ \footnote{$A \cdot B = \{a \cdot b \mid a \in A, b \in B\}$}
+	\item\label{Zahlen:Rechenregeln:subset} $A \subseteq B \ \Rightarrow \  \sup(A) \leq \sup(B)$
+\end{enumerate}
+Selbiges für das Infimum (wobei bei \autoref{Zahlen:Rechenregeln:subset} das '$\leq$' durch ein '$\geq$' zu ersetzen ist)
+
+\subsection{Umgebung}
+Ein offenes Intervall $(a,b)$ ist eine Umgebung von $x$, falls $x \in (a,b)$.
+
+\subsection{Offenheit einer Menge}
+$A \subseteq \mathbb{R}$ ist offen, falls $\forall x \in A$ gilt: $\exists I_x$ Umgebung von $x$, sodass $I_x \subseteq A$
+
+\subsection{Abgeschlossenheit einer Menge}
+$A \subseteq \mathbb{R}$ ist abgeschlossen, falls $\mathbb{R} \backslash A$ offen ist.
+
+\subsection{Zeitgleich offen und abgeschlossen}
+Nur $\mathbb{R}$ und $\emptyset$ sind offen und abgeschlossen.
+
+\subsection*{Skalarprodukt}
+\begin{align*}
+	\cdot: \mathbb{R}^n \times \mathbb{R}^n &\rightarrow \mathbb{R}\\
+	\overline{x} \cdot \overline{y} &\mapsto \sum_{k=1}^nx_ky_k\\
+\end{align*}
+
+Seien $\overline{x}, \overline{y}, \overline{z} \in \mathbb{R}^n$ und $\alpha \in \mathbb{R}$:
+\begin{enumerate}
+	\item $\overline{x} \cdot \overline{y} = \overline{y} \cdot \overline{x}$
+	\item $(\alpha \overline{x}) \cdot \overline{y} = \overline{x} \cdot (\alpha \overline{y}) = \alpha(\overline{x} \cdot \overline{y})$
+	\item $(\overline{x} + \overline{y}) \cdot \overline{z} = \overline{x}\cdot\overline{z} + \overline{y}\cdot\overline{z}$
+	\item $\overline{x} \cdot \overline{x} \geq 0$
+\end{enumerate}
+
+\subsection*{Euklidische Norm}
+\begin{equation*}
+\vert\vert (x_1, \dots, x_n) \vert\vert := \sqrt{(x_1, \dots, x_n)\cdot(x_1, \dots, x_n)} = \sqrt{\sum_{k=1}^{n}x^2_k}
+\end{equation*}
+
+\subsection{Cauchy-Schwarz-Ungleichung}
+$\forall \overline{x},\overline{y}\in\mathbb{R}^n$:
+\begin{equation*}
+	\left\vert\left<\overline{x},\overline{y}\right>\right\vert \leq \vert\vert\overline{x}\vert\vert \cdot \vert\vert\overline{y}\vert\vert\footnotemark
+\end{equation*}\footnotetext{$\left<\overline{x},\overline{y}\right>$ beschreibt das Skalarprodukt von $\overline{x}$ und $\overline{y}$}
+Gleichheit gilt gdw. $\overline{x}$ und $\overline{y}$ linear abhängig sind.
+
+\subsection{Dreiecksungleichung}
+$\forall \overline{x},\overline{y}\in\mathbb{R}^n$:
+\begin{equation*}
+	\vert\vert \overline{x} + \overline{y} \vert\vert \leq \vert\vert\overline{x}\vert\vert + \vert\vert\overline{y}\vert\vert
+\end{equation*}
+
+\subsection{Ungleichung geom. und arithm. Mittel}
+Seien $x,y \geq 0$.
+\begin{equation*}
+	\sqrt{xy} \leq \frac{x + y}{2}
+\end{equation*}
+
+\subsection*{Komplexe Zahlen}
+$i := \sqrt{-1}$.\\
+$\mathbb{C} := \left\{x + yi \;\middle|\; x, y \in \mathbb{R}\right\}$\\\\
+Seien $z_1 = x_1 + y_2i, z_2 = x_2 + y_2i \in \mathbb{C}$ komplexe Zahlen. Wir definieren:
+\begin{itemize}
+	\item die Addition: $z_1 + z_2 = (x_1 + x_2) + (y_1 + y_2)i$
+	\item die Subtraktion: $z_1 - z_2 = (x_1 - x_2) + (y_1 - y_2)i$
+	\item die Multiplikation: $z_1 \cdot z_2 = x_1x_2 - y_1y_2 + (x_1y_2 + x_2y_1)i$
+	\item die Konjugierte: $\overline{z_1} = x_1 - y_1i$
+	\item den Betrag: $\vert z_1\vert = \sqrt{x_1^2 + y_1^2}$
+\end{itemize}
+
+\newpage
+\section{Folgen und Stetigkeit}
+
+\subsection{Definition Folge}
+Eine Folge mit Werten ist eine Abbildung $\mathbb{N}^+ \rightarrow M$, wobei $M$ eine beliebige Menge.\\
+Wir schreiben $x_1, x_2, ...$.\\
+Alternativ kann eine Folge auch mit $\mathbb{N}_0$ definiert sein.
+
+\subsection{Definition (streng) monoton}
+Eine Folge $(x_n)_n$ heißt monoton wachsend, falls $\forall n: x_n \leq x_{n+1}$.\\
+Eine Folge $(x_n)_n$ heißt streng monoton wachsend, falls $\forall n: x_n < x_{n+1}$.\\\\
+Vergleichbar definiert ist (streng) monoton fallend.
+
+\subsection{Definition Grenzwert einer Folge}
+$x \in \mathbb{R}$ heißt Grenzwert / Limes einer Folge $(x_n)_n$, falls:
+\begin{equation*}
+	\forall \varepsilon > 0:\;\; \exists N \in \mathbb{N}:\;\; \forall n \geq N:\;\; \vert x_n - x\vert < \varepsilon
+\end{equation*}
+Man schreibt:
+\begin{align*}
+	x_n &\xrightarrow[n \rightarrow \infty]{} x &&\text{oder} & x &= \lim_{n \rightarrow \infty} x_n
+\end{align*}
+$x_n$ heißt konvergent gdw. ein Grenzwert existiert.
+
+\subsection{maximal ein Grenzwert}
+Jede reelle Folge hat max. einen Grenzwert. Wer lesen kann, ist klar im Vorteil. Und wer das hier jetzt noch immer liest, ist doof.
+
+\subsection{Beschränkung des Grenzwerts}
+Falls $(x_n)_n \rightarrow x$ und $(y_n)_n \rightarrow y$ beschränkte Folgen mit $\forall n: \; x_n \leq y_n$, so gilt $x \leq y$.
+
+\subsection{Einschließung}
+Falls $(x_n)_n \rightarrow x$ und $(y_n)_n \rightarrow x$ beschränkte Folgen mit $\forall n: \; x_n \leq y_n$. 
+Für jede weitere Folge $(w_n)$ mit $\forall n: \; x_n \leq w_n \leq y_n$ gilt dann: $w_n \rightarrow x$
+
+\subsection{Definition Beschränktheit}
+$(x_n)$ geht gegen $+\infty$, falls 
+\begin{equation*}
+	\forall C > 0: \;\; \exists N \in \mathbb{N}: \;\; \forall n \geq N: \;\; x_n \geq C
+\end{equation*}
+Vergleichbar geht $(x_n)$ gegen $-\infty$. \\
+$(x_n)$ heißt hingegen beschränkt, falls $\exists K > 0$, sodass $\forall n : \;\; \vert x_n \vert \leq K$
+
+\subsection{Beschränktheit durch Grenzwert}
+Jede konvergente Folge ist beschränkt.
+
+\subsection{Rechenregeln}
+Seien $(x_n)$ und $(y_n)$ Folgen mit $x_n \rightarrow a$ und $y_n \rightarrow b$. Dann gilt:
+\begin{itemize}
+	\item $x_n + y_n \rightarrow a + b$
+	\item $x_n - y_n \rightarrow a + b$
+	\item $x_n \cdot y_n \rightarrow a \cdot b$
+	\item $x_n / y_n \rightarrow a / b$, falls $b \neq 0$
+\end{itemize}
+
+\subsection{Konvergenz gegen Supremum / Infimum}
+Jede monoton wachsende, beschränkte Folge konvergiert gegen ihr Supremum:
+\begin{equation*}
+	x = \lim_{n \rightarrow \infty} x_n = \sup\hspace{0cm}_n(x_n) := \sup(M) \;\; \text{ mit } M := \left\{x_n \;\vert\; x \in \mathbb{N}\right\}
+\end{equation*}
+
+\noindent Ebenso konvergiert jede monoton fallende, beschränkte Folge gegen ihr Infimum.
+
+\subsection*{Definition Limes superior und Limes inferior}
+Sei $(x_n)$ \underline{beschränkt}.
+Dann ist definiert:
+\begin{align*}
+	\limsup_{n \rightarrow \infty} x_n &:= \lim_{n \rightarrow \infty} (\sup_{k \geq n} x_k) \\
+	\liminf_{n \rightarrow \infty} x_n &:= \lim_{n \rightarrow \infty} (\inf_{k \grq n} n_k)
+\end{align*}
+Es folgt: $\displaystyle\liminf_{n \rightarrow \infty} x_n  \leq \limsup_{n \rightarrow \infty} x_n$
+
+\subsection{Häufungspunkt}
+Sei $(x_n)$ eine reellwertige Folge. \\
+Seien $n_1 < n_2 < ... < n_k \in \mathbb{N}$ gegeben, so heißt $(x_{n_k})$ Teilfolge von $(x_n)$.\\
+$x \in \mathbb{R}$ heißt Häufungspunkt, falls es eine Teilfolge mit $\lim\limits_{k \rightarrow \infty} x_{n_k} = x$ gibt.
+
+\subsection{Bolzano-Weierstrass}
+Falls $(x_n)$ und reellwertig:
+\begin{equation*}
+	\lim_{n \rightarrow \infty} x_n = x \text{ gdw. } \liminf_{n \rightarrow \infty} x_n = \limsup_{n \rightarrow \infty} x_n = \lim_{n \rightarrow \infty} x_n
+\end{equation*}
+Letztere Gleichung besagt, dass $\limsup\limits_{n \rightarrow \infty} x_n$ und $\liminf\limits_{n \rightarrow \infty} x_n$ zugleich maximaler und minimaler Häufungspunkt sind.\\\\
+Diese Aussage ist äquivalent zu: Jede beschränkte Folge hat mindestens eine konvergente Teilfolge (da besagter Wert, auf den konvergiert wird, ein Häufungspunkt ist).
+
+\subsection{Cauchys Kriterium für Konvergenz}
+$(x_n)$ konvergiert gdw. 
+\begin{equation*}
+	\forall \varepsilon > 0:\;\; \exists N : \;\; \forall m,n > N: \;\; \vert x_n - x_m\vert < \varepsilon
+\end{equation*}
+
+\newpage
+\section{Reihen}
+\subsection{Definition Reihe}
+Sei $a_n$ eine (komplexe) Folge. Die Folge 
+\begin{equation*}
+	s_n := a_0 + ... + a_n = \sum_{k=0}^{n}a_k
+\end{equation*}
+heißt unendliche Reihe (kurz: Reihe) mit den Gliedern $a_n$ und den Partialsummen $s_n$.\\\\
+Falls $s_n$ konvergent:
+\begin{equation*}
+	s = \lim_{n \rightarrow \infty} s_n := \sum_{k=0}^{\infty}a_k
+\end{equation*}
+$s$ heißt die Summe oder der Wert der Reihe.\\
+Falls $s_n$ reell und geht gegen $+\infty$, so schreiben wir:
+\begin{equation*}
+	\sum_{k=0}^\infty a_k = \infty
+\end{equation*}
+Gleiches gilt auch für $-\infty$.
+
+\subsection{Notwendige Bedingung für Konvergenz}
+Falls die Reihe $\sum_{k=0}^{n}a_k$ konvergent, so gilt: $\lim_{n \rightarrow \infty} a_n = 0$.
+
+\subsection{Konvergenz $\Leftrightarrow$ Beschränktheit bei positiven Gliedern}
+Eine reelle Reihe $s_n$ mit positiven Gliedern ist beschränkt gdw. konvergent.
+
+\setcounter{subsection2}{\value{subsection}}
+\section*{Vergleichskriterien für Konvergenz}
+\addcontentsline{toc}{subsection}{Vergleichskriterien für Konvergenz}
+\setcounter{subsection}{\value{subsection2}}
+\subsection{Definition Majorante / Minorante}
+Sei $s_n$ eine Reihe mit den komplexen Gliedern $a_k$. Eine Reihe $\sum_{k=0}^{n}b_k$ heißt Majorante von $s_n$, wenn $\vert a_k\vert \leq b_k$. Sie heißt Minorante von $s_n$, wenn $b_k \leq \vert{}a_k\vert$.
+
+\subsection{Majorantenkriterium / Minorantenkriterium}
+Sei $(s_n)$ eine Reihe mit den komplexen Gliedern $a_k$ und einer konvergenten Majorante mit den Gliedern $b_n$. Dann ist $(s_n)$ konvergent.
+Es gilt:
+\begin{equation*}
+	\left\vert\sum_{k=0}^{\infty}a_k\right\vert \leq \sum_{k=0}^\infty \vert a_k\vert \leq \sum_{k=0}^\infty b_k
+\end{equation*}
+Falls eine Reihe $(s_n)$ hingegen eine divergente Minorante hat, so ist auch $(s_n)$ divergent.
+
+
+\subsection{Divergenz}
+Eine Reihe heißt divergent, wenn sie nicht konvergent ist.
+
+\subsection{Quotientenkriterium}
+Eine Reihe $\sum_{k=0}^\infty a_k$ konvergiert (absolut), falls
+\begin{equation*}
+	\exists q \in \mathbb{R} \text{ mit } q < 1: \;\; \exists n_0 \geq 0: \;\; \forall k \geq n_0: \;\; \frac{\vert a_{k+1}\vert}{\vert a_k\vert} \leq q
+\end{equation*}
+Wobei $q$ fest sein muss, also $\frac{\vert a_{k+1}\vert}{\vert a_k\vert} < 1$ reicht nicht aus!
+
+\setcounter{subsection2}{\value{subsection}}
+\section*{Alternierende Reihen}
+\addcontentsline{toc}{subsection}{Alternierende Reihen}
+\setcounter{subsection}{\value{subsection2}}
+Eine Reihe mit den Gliedern $a_k$ heißt alternierend, falls die Glieder abwechselnd verschiedene Vorzeichen haben. Wir schreiben: $a_0 - a_1 + a_2 - a_3 + a_4 + ...$.\\
+Wir nehmen an: $a_0 > 0$.
+
+\subsection{Leibnitzkriterium}
+Sei $(a_n)_{n\geq0}$ eine monoton fallende Folge in $\mathbb{R}$ mit $a \xrightarrow[n \rightarrow \infty]{} 0$.\\
+Dann konvergiert die Reihe $\sum\limits_{k=0}^\infty(-1)^ka_k$.\\
+Es gilt:
+\begin{equation*}
+	\left\vert \sum_{k=0}^{\infty}(-1)^na_k-Sn\right\vert = \left\vert \sum_{k=n+1}^{\infty}(-1)^ka_k\right\vert \leq a_{n+1}
+\end{equation*}
+
+\subsection{Absolute Konvergenz}
+$\sum\limits_{k=0}^na_k$ mit $a_k \in \mathbb{C}$ heißt absolut konvergent, falls $\sum\limits_{k=0}^n\vert a_k\vert$ konvergent.\\
+Eine Reihe, die konvergiert, aber nicht absolut konvergiert, heißt bedingt konvergent.
+
+\subsection{Umordnungssatz}
+Sei $\sigma: \mathbb{N} \rightarrow \mathbb{N}$ eine Permutation.
+\begin{equation*}
+	\sum_{k=1}^na_k \text{ konvergiert gdw. } \sum_{k=1}^\infty a_{\sigma(k)} = \sum_{k=1}^\infty a_k
+\end{equation*}
+
+\subsubsection*{Beliebigkeit der Ergebnisse bei Änderung der Summationsreihenfolge}
+Sei $\sum\limits_{n=1}^{\infty}a_n$ eine bedingt konvergente Reihe und sei $x \in \mathbb{R}$. Dann $\exists \sigma$ Permutation, sodass $\sum\limits_{n=1}^{\infty}a_{\sigma(n)} = x$.
+
+\noindent Es gibt auch eine Permutation $\sigma$, sodass $\sum\limits_{n=1}^{\infty}a_{\sigma(n)}$ gegen $+\infty$ konvergiert, eine, sodass es gegen $-\infty$ konvergiert und eine, wo $\limsup \sum\limits_{k=1}^{n}a_{\sigma(k)} \neq \liminf \sum\limits_{k=1}^{n}a_{\sigma(n)}$.
+
+\subsection{Doppelreihensatz}
+Seien $a_{i,j} \in \mathbb{C}$ mit $i,j \in \mathbb{N}$. Falls $\sum\limits_{i=0}^{\infty}\sum\limits_{j=0}^\infty\vert a_{i,j}\vert < \infty$, dann konvergiert $\sum\limits_{i=0}^{\infty}\sum\limits_{j=0}^\infty a_{i,j}$ und
+\begin{align*}
+\sum\limits_{i=0}^{\infty}\sum\limits_{j=0}^\infty a_{i,j} &= \sum\limits_{j=0}^{\infty}\sum\limits_{i=0}^\infty a_{i,j} \\
+&= \sum\limits_{n=0}^{\infty}\sum\limits_{k=0}^\infty a_{k,(n-k)}
+\end{align*}
+
+\noindent Es folgt:
+
+Seien $a_n, b_n \in \mathbb{R}$ reelle Folgen. Dann gilt:
+\begin{align*}
+\sum_{k=0}^{\infty}a_k \sum_{j=0}^{\infty}b_j &= \sum_{k=0}^{\infty}\sum_{j=0}^\infty a_kb_j \\
+&= \sum_{m=0}^{\infty}\sum_{k,j,k+j = m}^{\infty} a_kb_j \\
+&= \sum_{m=0}^{\infty} c_m
+\end{align*}
+wobei $c_m = \sum\limits_{k=0}^ma_kb_{m-k}$ die Definition des Cauchy-Produkts.
+
+\subsection{Exponentialfunktion}
+\begin{equation*}
+	\exp(z) = \sum_{k=0}^\infty\frac{z^k}{k\!} \hspace{1cm}\forall z \in \mathbb{C}
+\end{equation*}
+Dabei gilt: $\exp(x) = e^x$ mit $e$ die Eulersche Zahl $\forall x \in \mathbb{R}$.
+
+\subsection{Rechenregeln der Exponentialfunktion}
+Seien $z \in \mathbb{C}$, $x \in \mathbb{R}$ und $n \in \mathbb{N}$. Dann gelten:
+\begin{enumerate}
+	\item $\exp(-z) = \frac{1}{\exp(z)}$
+	\item $\exp(z) \neq 0+0i$
+	\item $\exp(x) > 0$
+	\item $\overline{\exp(z)} = \exp \overline{z}$
+	\item $\exp(x)$ ist monoton wachsend
+	\item $\vert \exp(z)\vert \leq \exp (\vert z\vert)$
+\end{enumerate}
+
+
+\subsection*{Überblick über alle Kriterien}
+Kriterien:
+\begin{itemize}
+	\item Majorantenkriterium
+	\item Minoratenkriterium
+	\item Quotientenkriterium
+	\item Wurzelkriterium*
+	\item Nullfolgenkriterium*
+	\item Leibnizkriterium
+\end{itemize}
+* Wurden nicht angesprochen
+
+\newpage
+\section{Grenzwerte von Funktionen und Stetigkeit}
+\noindent Sämtliche Sätze gelten auch auf $\mathbb{C}$, auch wenn sie nur auf $\mathbb{R}$ angegeben sind.
+\subsection{Definition Isolierter Punkt}
+Sei $D \subseteq \mathbb{R}$ und $x_0 \in D$. $x_0$ heißt isoliert in $D$ wenn:
+\begin{equation*}
+\nexists (a_n)_{n \in \mathbb{N}} \text{ mit } a_n \in D \backslash \{x_0\}: \;\; \lim a_n = x_0
+\end{equation*}
+
+\subsection{Grenzwert einer Funktion}
+Sei $D \subseteq \mathbb{R}$, $f: D \rightarrow \mathbb{R}$ und $x_0 \in D$.\\
+$a$ heißt Grenzwert von $f$ in $x_0$ (Schreibweise: $a = \lim\limits_{x \rightarrow x_0} f(x)$), falls 
+\begin{enumerate}[label=\alph*.]
+	\item $x_0$ nicht isoliert und
+	\item $\forall (a_n)_{n \in \mathbb{N}}$ mit $a_n \in D$ und $\lim\limits_{n \rightarrow \infty} a_n = x_0$ gilt: $\lim\limits_{n \rightarrow \infty} f(a_n) = a$
+\end{enumerate}
+
+\subsection{Definition Stetigkeit}
+Sei $D \subseteq \mathbb{R}$, $f: D \rightarrow \mathbb{R}$ und $x_0 \in D$.\\
+$f$ heißt stetig in $x_0$, falls $x_0$ isoliert oder $\lim\limits_{x \rightarrow x_0} f(x) = f(x_0)$.\\
+$f$ heißt stetig in $D$, falls $\forall x \in D$ $f$ stetig in $x$.
+
+\subsection{Alternative Definition für Grenzwert}
+Sei $D \subseteq \mathbb{R}$, $f: D \rightarrow \mathbb{R}$ und $x_0 \in D$ nicht isoliert.
+\begin{equation*}
+	\lim\limits_{x \rightarrow x_0} f(x) = a \text{ gdw. } \forall \varepsilon > 0: \;\; \exists \delta > 0: \;\; \forall x \in (x_0 - \delta, x_0 + \delta) \cap (D \backslash \{x_0\}): \;\; \vert f(x) - a\vert < \varepsilon
+\end{equation*}
+
+\subsection{Rechenregeln beim Grenzwert}
+Sei $D \subseteq \mathbb{R}$ und seien $f, g: D \rightarrow \mathbb{R}$. Dann gilt:
+$\forall x \in D$ mit $f$ und $g$ stetig in $x$: $f + g, f-g, f\cdot g$ stetig in x. Zudem $\frac{f}{g}$ stetig in $x$, falls $g(x) \neq 0$.\\\\
+Damit sind endliche Polynome (und Brüche daraus) auf ihrem Definitionsbereich stetig.
+
+\subsection{Stetigkeit von $\exp$}
+Die Exponentialfunktion $\exp$ ist stetig auf $\mathbb{C}$.
+
+\subsection{Komposition stetiger Funktionen}
+Seien $f: D_f \rightarrow R$, $g : D_g \rightarrow \mathbb{R}$ und $f(D_f) \subseteq D_g$ \footnote{$f(A) := \left\{f(x) \;\vert\; x \in A\right\}$}.\\
+$\forall x \in D_f$: Wenn $f$ stetig in $x$ nd $g$ stetig in $f(x)$, so ist auch $g \circ f$ stetig in $x$.
+
+\subsection{Definition linksseitiger / rechtsseitiger Grenzwert / Stetigkeit}
+Seien $D \subseteq \mathbb{R}$, $f : D \rightarrow \mathbb{R}$ und $a \in D$ nicht isoliert.\\
+$c \in \mathbb{R}$ heißt linksseitiger Grenzwert von $f$ im Punkt $a$ (Schreibweise: $\lim\limits_{x \rightarrow a^-} f(x) = c$)\footnote{alternativ auch $\lim\limits_{x \nearrow a} f(x) = c$ für linksseitigen und $\lim\limits_{x \searrow a} f(x) = c$ für rechtsseitigen Grenzwert}, falls $\forall (x_n)_{n \in \mathbb{N}}$ mit $x_n \in D$, $\forall n \in \mathbb{N}: x_n < a$ und $x_n \rightarrow c$ gilt: $\lim_{n \rightarrow \infty} f(x_n) = c$.\\
+$f$ heißt linksseitig stetig in $a$, falls $\lim\limits_{x \rightarrow a^-} f(x) = f(a)$.\\\\
+Analog ist der rechtsseitige Grenzwert definiert: $\lim\limits_{x \rightarrow a^+} f(x)$
+
+
+\subsection*{Fixpunktiteration}
+\addcontentsline{toc}{subsection}{Fixpunktiteration}
+Sei $f : \mathbb{R} \rightarrow \mathbb{R}$. $x \in \mathbb{R}$ heißt Fixpunkt von $f$, falls $f(x) = x$.\\
+Iterativer Lösungsansatz: $x_{n+1} = f(x_n)$. Dann gilt: Falls $f$ stetig in $D$, $f(D) \subseteq D$ und $x_0 \in D$, so ist $\lim_{n \rightarrow \infty}x_n$ ein Fixpunkt.
+
+\newpage
+\section{Komplexe Zahlen und trigonometrische Funktionen}
+Wir rechnen in Bogenmaßen. Der Einheitskreis ist definiert als $\big\{z \;\big\vert\; \vert z\vert = 1\big\}$.
+
+\subsection{Definition Sinus / Cosinus}
+\begin{align*}
+	\sin x &:= \frac{\exp(ix) - \exp(-ix)}{2i} \;=\; \sum_{n=0}^{\infty}\frac{(-1)^nx^{2n+1}}{(2n+1)!}\\
+	\cos x &:= \frac{\exp(ix) + \exp(-ix)}{2} \;=\; \sum_{n=0}^{\infty}\frac{(-1)^nx^{2n}}{(2n)!}
+\end{align*}
+Es folgt: $\sin 0 = 0$ und $\cos 0 = 1$\\
+Diese Definition ist im reellen Raum äquivalent zur geometrischen Definition am rechtwinkligen Dreieck.
+
+\subsection{Sinus / Cosinus periodisch, Definition Pi}
+$\sin$ und $\cos$ sind periodisch, d.h. $\exists \pi \in \mathbb{R}: \forall z \in \mathbb{C} : \sin z + 2 \pi = \sin z, \cos z + 2\pi = \cos z$.\\
+$\pi \approx 3,14159265412$.
+
+\subsection*{Rechenregeln für Sinus und Cosinus}
+\addcontentsline{toc}{subsection}{Rechenregeln für Sinus und Cosinus}
+\begin{align*}
+	\sin -x                              & = -\sin x  &  & \text{Punktsymmetrie}  &  &  &  &  \\
+	\cos -x                              & = \cos x   &  & \text{Achsensymmetrie} &  \\
+	\sin \left(x + \sfrac{\pi}{2}\right) & = \cos x   &  & \text{Verschiebung}    &  \\
+	\cos \left(x + \sfrac{\pi}{2}\right) & = - \sin x &
+\end{align*}
+Zudem folgt aus dem Satz des Pythagoras:
+\begin{equation*}
+	\sin^2 x + \cos^2 x = 1
+\end{equation*}
+
+\subsection*{Rechenregeln für komplexe Exponentialfunktion}
+\addcontentsline{toc}{subsection}{Rechenregeln für komplexe Exponentialfunktion}
+Sei $x \in \mathbb{R}$ und $z = \exp ix = e^{ix}$.
+\begin{align*}
+	\vert e^{ix}\vert & = e^{ix}\overline{e^{ix}} \\
+	                  & = e^{ix}e^{\overline{ix}} \\
+	                  & = e^{ix}e^{-ix}           \\
+	                  & = e^0                     \\
+	                  & = 1
+\end{align*}
+Also ist $e^{ix}$ der Einheitskreis auf der komplexen Ebene:
+\begin{equation*}
+	e^{ix} = \cos x + i \sin x
+\end{equation*}
+Insbesondere gilt also:
+\begin{align*}
+	e^{i\frac{\pi}{2}} &= i & e^{i\pi} = -1
+\end{align*}
+Folgerung:
+\begin{equation*}
+	e^{-ix} = \cos x - i \cdot \sin x
+\end{equation*}
+
+\subsubsection*{Definition Tangens / Kotangens}
+\addcontentsline{toc}{subsection}{Definition Tangens / Kotangens}
+\begin{align*}
+	\tan x & := \frac{\sin x}{\cos x}                                         \\
+	\cot x & := \frac{\cos x}{\sin x} \underset{\sin x \neq 0}{=} \tan^{-1} x
+\end{align*}
+Hinweis: $\tan x$ und $\cot x$ sind periodisch (Periode $\pi$). $\tan \frac{\pi}{2}$ und $\cot 0$ sind nicht definiert.
+
+\subsection{Konvergenz bei Multiplikation}
+Seien $d \in \mathbb{N}$, $D \subseteq \mathbb{R}^d$, $a \in D$ und $f,g : D \rightarrow \mathbb{R}$ und $g$ auf $D$ beschränkt sowie \mbox{$\lim\limits_{x \rightarrow a} f(x) = 0$}.
+Dann folgt: $\lim\limits_{x \rightarrow a} f(x) \cdot g(x) = 0$.
+
+\subsection*{Polarkoordinaten}
+\addcontentsline{toc}{subsection}{Polarkoordinaten}
+Sei $z \in \mathbb{C} \backslash \{0\}$. Dann gibt es $r, \phi \in \mathbb{R}$, sodass $r = \vert z\vert$ und $e^{i\phi} = \frac{z}{r}$ (da $\vert\frac{z}{r}\vert = 1$).\\
+$r$ und $\phi$ heißen Polarkoordinaten von $\phi$: $r$ ist der Abstand von $z$ zum Nullpunkt, $\phi$ der Winkel zur reellen Achse. Die Abbildung Polarkoordinaten $\leftrightarrow$ Real- und Imaginärteil ist bijektiv.\\
+Die Multiplikation in Polarkoordinaten\footnote{Ich (Josef) schreibe: $r \angle \phi$ für $r \cdot e^{i\phi}$}: $z_1 = r_1 \angle \phi_1$, $z_2 = r_2 \angle \phi_2$. Es folgt: $z_1 + z_2 = (r_1\cdot r_2) \angle (\phi_1 + \phi_2)$
+
+\newpage
+\section{Konsequenzen der Stetigkeit}
+\subsection{\glqq Vollständigkeit\grqq{} des Ergebnisraums einer beliebigen Funktion}
+Sei $f : [a,b] \rightarrow \mathbb{R}$.\\
+Es muss $\forall y \in [f(a), f(b)]$ \underline{nicht unbedingt} auch ein $x$ mit $f(x) = y$ geben.
+
+\subsection{Zwischenwertsatz}
+$f : [a,b] \rightarrow \mathbb{R}$.\\
+Wenn $f$ stetig, so $\forall y\in[f(a), f(b)]: \exists x : f(x) = y$.
+
+\subsection{Maximum / Minimum}
+Sei $D \subseteq \mathbb{R}$, $f : D \rightarrow \mathbb{R}$.\\
+$x \in \mathbb{R}$ heißt Maximum von $f$, wenn $\forall z \in D: f(x) \geq f(z)$.\\
+$x \in \mathbb{R}$ heißt Minimum von $f$, wenn $\forall z \in D: f(x) \leq f(z)$.\\\\
+Hinweis: Maximum und Minimum sind nicht unbedingt eindeutig. Nicht jede Funktion hat ein Maximum und/oder Minimum.
+
+\stepcounter{subsection}
+\subsection{Maximum/Minimum einer stetigen Funktion}
+Jede stetige Funktion $f: [a, b] \rightarrow \mathbb{R}$ hat ein Maximum und ein Minimum.
+
+\subsection{Definition Konvergenz \& Stetigkeit im mehrdimensionalen Raum}
+Sei $d \in \mathbb{N}$, $(x_n)_n \in \mathbb{N}$ eine Folge in $\mathbb{R}^d$ und $x \in \mathbb{R}^d$.\\
+$x_n$ konvergiert gegen $x$ falls $\lim\limits_{n \rightarrow \infty} \vert\vert x_n - x\vert\vert = 0$. (Schreibweise: $\lim\limits_{n \rightarrow \infty} x_n = x$ 
+oder \mbox{$x_n \xrightarrow[n \rightarrow \infty]{} x$})\\
+Alternativ komponentenweise: $\forall i \in \{1,...,d\}: \lim\limits_{n \rightarrow \infty} {x_n}_i = x_i$.\\\\
+Sei $d \in \mathbb{N}$, $D \in \mathbb{R}^d$, $x \in D$ und $f : D \rightarrow \mathbb{R}^m$ mit $m \in \mathbb{N}$.\\
+$f$ heißt stetig in $x \in D$, falls $\forall (x_n)$ in D mit $x_n \xrightarrow[n \rightarrow \infty]{} x$ gilt: $\lim\limits_{n \rightarrow \infty} = f(x)$.\\
+$f$ heißt stetig, falls $\forall x \in D$ gilt: $f$ stetig in $x$.
+
+\subsection*{mehrdimensionale Offenheit / (Ab-)Geschlossenheit}
+\addcontentsline{toc}{subsection}{mehrdimensionale Offenheit / Geschlossenheit}
+Eine Menge $A \subseteq \mathbb{R}^n$ heißt offen, wenn $\forall x_0 \in A: \exists \varepsilon > 0 : \{x \mid \Vert x-x_0\Vert < \varepsilon\} \subseteq A$.\\
+$A$ heißt geschlossen, wenn $\mathbb{R}^n \backslash A$ offen.\\
+$A$ ist (ab-)geschlossen gdw. $\forall (a_n)$ mit $a_n \in A$ und $\lim\limits_{n \rightarrow \infty} a_n = a$ gilt: $a \in A$\\\\
+Anmerkung: Nur $\mathbb{R}^n$ und $\emptyset$ sind zugleich offen und geschlossen.
+
+\subsection{Definition Kompaktheit}
+Sei $n \in \mathbb{N}$ und $A \subseteq \mathbb{C}^n$.\\
+$A$ heißt kompakt, falls $\forall (a_n)$ mit $a_n \in A$ gilt: $\exists (a_{n_k})$ Teilfolge von $(a_n)$, sodass \mbox{$\lim\limits_{k \rightarrow \infty} a_{n_k}\in{}A$}.
+
+\subsection{stetig von Kompakter Menge abbilden $\rightarrow$ Maxi- und Minimum}
+Sei $A$ kompakt und $f : A \rightarrow \mathbb{R}$.\\
+Wenn $A$ stetig, so hat $f$ sowohl ein Maximum als auch ein Minimum.
+
+\subsection{mehrdimensionale Beschränktheit}
+$M \subseteq \mathbb{R}^d$ heißt beschränkt, wenn $\exists K \in \mathbb{R} : \forall x \in M : \Vert x\Vert < K$.\\
+Eine Folge $(x_n) \in \mathbb{R}^n$ heißt beschränkt, wenn die Menge aller ihrer Glieder beschränkt ist. Wir schreiben die Glieder $\forall n: x_n = (x_{n,1},...,x_{n,d})$ mit $x_{n,k} \in \mathbb{R}$ und $1 \leq k \leq d$.
+
+\subsection{komponentenweise Konvergenz}
+Eine Folge $(x_n)$ in $\mathbb{R}^d$ konvergiert gdw. alle ihre Komponenten konvergieren:
+\begin{align*}
+	\lim_{n \rightarrow \infty} x_n &= x &  & \text{ gdw. } &  &\forall k \in \{1,...,d\}: \lim_{n \rightarrow \infty} x_{n,k} = x_k
+\end{align*}
+
+\subsection{Kompakt $\leftrightarrow$ abgeschlossen \& beschränkt}
+$A \subseteq \mathbb{R}^n$ ist kompakt gdw. $A$ ist abgeschlossen und beschränkt.
+
+\subsection{Kompaktheit steter Bilder kompakter Mengen}
+Sei $D \subseteq \mathbb{R}^d$ kompakt und $f : \mathbb{R}^d \rightarrow \mathbb{R}^m$ stetig.\\
+Dann ist $f(D)$ kompakt.\footnote{$f(D) = \left\{f(x) \;\middle|\; x \in D\right\}$}
+
+\subsection{Definition Umkehrabbildung \& -funktion}
+Sei $f: A \rightarrow B$ bijektiv\footnote{bijektiv heißt injektiv und surjektiv:\\Injektiv: auf jedes Element wird max. 1x abgebildet\\Surjektiv: auf jedes Element wird min. 1x abgebildet}.\\
+$\exists f^{-1} : B \rightarrow A$ Umkehrabbildung, sodass $\forall y \in B: f(f^{-1}(y)) = y$.\\\\
+Wenn $A, B \subseteq \mathbb{R}^d$, so heißt $f^{-1}$ Umkehrfunktion.\\\\
+Hinweis: $f^{-1}$ ist bijektiv. Man erhält den Graphen von $f^{-1}$ durch Spiegelung des Graphen von $f$ an der Geraden $y=x$, wenn $A, B \subseteq \mathbb{R}$.
+
+\subsection{Umkehrfunktionen von stetigen, streng monoton wachsenden Funktionen}
+Sei $I \subseteq \mathbb{R}$ ein Intervall, $f : I \rightarrow \mathbb{R}$ stetig und streng monoton wachsen.\\
+$f$ ist bijektiv, $f^{-1}$ ist auch stetig und streng monoton wachsend.
+
+\subsection{Definition natürlicher Logarithmus}
+\begin{equation*}
+	\ln := \exp^{-1} \text{ mit } \exp: \mathbb{R} \rightarrow (0, \infty)
+\end{equation*}
+heißt (natürlicher) Logarithmus.
+
+\subsection*{Rechenregeln des Logarithmus}
+\addcontentsline{toc}{subsection}{Rechenregeln des Logarithmus}
+Seien $x,y \in \mathbb{R}, k \in \mathbb{Z}$.
+\begin{align*}
+	\ln(1) &= 0 \\
+	\ln(e) &= 1 \\
+	\ln(x) + \ln(y) &= \ln(x \cdot y)\\
+	\ln(x^k) &= k \cdot \ln(x)\;\;\text{ falls }x > 0
+\end{align*}
+
+\subsection{Definition Potenzieren auf $\mathbb{R}$, Wurzelrechnung}
+Sei $x,a \in \mathbb{R}$ mit $x > 0$.
+\begin{equation*}
+	x^a := \exp(a \cdot \ln(x))
+\end{equation*}
+Es gilt: $x^{a+b} = \exp\big((a+b) \cdot \ln(x)\big) = \exp\big(a \ln(x)\big)\cdot \exp\big(b \ln(x)\big) = x^ax^b$.\\\\
+Wir schreiben: $\sqrt[\uproot{1}n]{x} := x^\frac{1}{n}$.\\
+Hinweis: Potenzfunktionen sind im Allgemeinen nicht bijektiv, Wurzelfunktion sind daher oft keine vollständige Umkehrfunktion!
+
+\subsection*{Definition Logarithmus zu Basen}
+\addcontentsline{toc}{subsection}{Definition Logarithmus zu Basen}
+Sei $x, b \in \mathbb{R}$ mit $b > 1$.
+\begin{equation*}
+	\log_b(x) := \frac{\ln(x)}{\ln(n)}
+\end{equation*}
+ist die Umkehrfunktion von $b^x$ und heißt Logarithmus zur Basis $b$.
+
+\subsection*{Umkehrfunktionen der trigonometrischen Funktionen}
+\addcontentsline{toc}{subsection}{Umkehrfunktionen der trigonometrischen Funktionen}
+Die trigonometrischen Funktionen sind im allgemein nur in einem gewissen Bereich umkehrbar, da sie im allgemeinen nicht bijektiv sind.
+\subsubsection*{Tangens}
+Die Umkehrfunktion von $\tan x$ für $x \in \left(-\frac{\pi}{2},\frac{\pi}{2}\right)$:
+\begin{equation*}
+	\arctan : \mathbb{R} \rightarrow \left(-\frac{\pi}{2},\frac{\pi}{2}\right)
+\end{equation*}
+heißt Arcustangens.
+\subsubsection*{Sinus}
+Die Umkehrfunktion von $\sin x$ für $x \in \left(-\frac{\pi}{2},\frac{\pi}{2}\right)$:
+\begin{equation*}
+\arcsin : \left[-1,1\right] \rightarrow \left(-\frac{\pi}{2},\frac{\pi}{2}\right)
+\end{equation*}
+heißt Arcussinus.
+\subsubsection*{Cosinus}
+Die Umkehrfunktion von $\cos x$ für $x \in \left(0,\pi\right)$:
+\begin{equation*}
+\arccos : \left[-1,1\right] \rightarrow \left(0,\pi\right)
+\end{equation*}
+heißt Arcuscosinus.\\
+
+\newpage
+\section{Differentiation}
+\subsection{Definition $\mathcal{O}$ und $o$}
+Seien $f,g : \mathbb{C} \rightarrow \mathbb{C}$ und $a \in \mathbb{R} \cup \left\{-\infty, \infty\right\}$.\\
+Wir schreiben: $f(x) = \mathcal{O}(g(x))$ für $x \rightarrow a$ falls:
+\begin{equation*}
+	\exists c > 0 \;:\; \forall (x_n) \in \mathbb{C} \text{ mit } x_n \rightarrow a \;:\; \left|f(x_n)\right| \leq c \cdot \left|g(x_n)\right|
+\end{equation*}
+für \underline{alle bis auf endlich viele $n$}.\\
+Wir schreiben: $f(x) = o(g(x))$ für $x \rightarrow a$ falls
+\begin{equation*}
+	\lim_{x\rightarrow a}\frac{f(x)}{g(x)} = 0
+\end{equation*}
+Sprich: \glqq{}$f$ ist gegenüber $g$ asymptotisch vernachlässigbar für $x \rightarrow a$.\grqq
+
+\stepcounter{subsection}
+\subsection{Definition innerer Punkt}
+Sei $D \subseteq \mathbb{R}$. $x_0 \in D$ heißt innerer Punkt von $D$, falls:
+\begin{equation*}
+	\exists \varepsilon > 0 \;:\; (x_0 - \varepsilon, x_0 + \varepsilon) \subseteq D
+\end{equation*}
+Hinweis: $D$ ist offen falls alle $x_0 \in D$ innere Punkte von $D$ sind.
+
+\subsection{Definition Differenzierbarkeit einer Stelle \& Ableitung}
+Sei $D \subseteq \mathbb{R}, f: D \rightarrow \mathbb{R}$ und $x_0$ innerer Punkt in $D$.\\
+$f$ heißt Differenzierbar in $x_0$, wenn:
+\begin{equation*}
+	\exists f'(x_0) \;:\; \forall x \in D \text{ mit } x \rightarrow x_0 \;:\; f(x) = f(x_0) + f'(x_0)(x-x_0)+o(x-x_0)
+\end{equation*}
+$f'(x)$ heißt die Ableitung von $f$ und beschreibt die Steigung der Tangenten an $f(x)$.\\
+Ausgeschrieben lautet die Definition:
+\begin{equation*}
+	f'(x_0) = \lim_{x\rightarrow x_0} \frac{f(x) - f(x_0)}{x - x_0} = \lim_{h\rightarrow 0} \frac{f(x_0 + h) - f(x_0)}{h}
+\end{equation*}
+
+\subsection{Definition Differenzierbarkeit einer Funktion}
+Sei $D \subseteq \mathbb{R}$ offen, $f : D \rightarrow \mathbb{R}$.\\
+$f$ heißt differenzierbar in $D$, falls $f$ differenzierbar in $x$, $\forall x \in D$.
+
+\addtocounter{subsection}{2}
+\subsection{Differenzierbarkeit $\rightarrow$ Stetigkeit}
+Sei $D \subseteq \mathbb{R}$, $x_0 \in D$ und $f : D \rightarrow \mathbb{R}$ differenzierbar in $x_0$.\\
+Dann ist $f$ stetig in $x_0$.\\\\
+\underline{Wichtig:} Die Umkehrung gilt nicht, d.h. aus Differenzierbarkeit lässt nicht auf Stetigkeit schließen!
+
+\stepcounter{subsection}
+\subsection{Definition rechts- \& linksseitige Ableitung}
+Sei $D \subseteq \mathbb{R}, f: D \rightarrow \mathbb{R}$ und $x_0$ innerer Punkt in $D$.\\
+\begin{equation*}
+	f'_+(x_0) = \lim_{\stackrel{h\rightarrow 0}{h > 0}}\frac{f(x_0 + h) - f(x_0)}{h}
+\end{equation*}
+heißt rechtsseitige Ableitung von $f$ in $x_0$.
+\begin{equation*}
+f'_-(x_0) = \lim_{\stackrel{h\rightarrow 0}{h < 0}}\frac{f(x_0 + h) - f(x_0)}{h}
+\end{equation*}
+heißt linksseitige Ableitung von $f$ in $x_0$.
+
+\subsection*{Notation der Ableitung}
+Die Schreibweise $f'(x_0)$ für die Ableitung von $f$ heißt Lagrange-Notation. Bekannt ist auch die Leibniz-Notation $\frac{df}{dx}(x_0)$.
+
+\subsection*{Definition Differentialoperator}
+Sei $I$ ein offenes Intervall.\\
+$D: f \mapsto f'$ ordnet jeder in $I$ differenzierbaren Funktion $f$ ihre Ableitung $f'$ zu.\\\\
+$D$ ist linear, d.h. $(a f)'(x) = a \cdot f'(x)$ und $(f + g)'(x) = f'(x) + g'(x)$.
+
+\subsection*{Ableitung der trigonometrischen Funktionen}
+\begin{align*}
+	\sin' &= \cos\\
+	\cos' &= -\sin
+\end{align*}
+
+\addtocounter{subsection}{4}
+\subsection{Produktregel}
+Sei $x \in \mathbb{R}$ und seien $f, g: \mathbb{R} \rightarrow \mathbb{R}$ differenzierbar in $x$.\\
+\begin{equation*}
+	(f \cdot f)'(x) = f'(x)\cdot g(x) + f(x)\cdot g'(x)
+\end{equation*}
+Daraus folgt auch: $(x^n)' = n \cdot x^{n-1}$.
+
+\stepcounter{subsection}
+\subsection{Quotientenregel}
+Sei $x \in \mathbb{R}$ und seien $f, g: \mathbb{R} \rightarrow \mathbb{R}$ differenzierbar in $x$, wobei $g(x) \neq 0$.\\
+\begin{equation*}
+	\left(\frac{f}{g}\right)'(x) = \frac{f'(x)g(x) - f(x)g'(x)}{g(x)^2}
+\end{equation*}
+
+\stepcounter{subsection}
+\subsection{Kettenregel}
+Seien $I, J \subseteq \mathbb{R}$, $f: I \rightarrow \mathbb{R}$ mit $f(I) \subseteq J$, $g: J \rightarrow \mathbb{R}$, $x_0 \in I$ innerer Punkt von $I$ und $f(x_0)$ innerer Punkt von $J$.\\
+$g \circ f$ ist in $x_0$ differenzierbar, wenn $f$ in $x_0$ und $g$ in $g(x_0)$ differenzierbar. Es gilt:
+\begin{equation*}
+	(g \circ f)'(x) = g'(f(x_0)) \cdot f'(x_0)
+\end{equation*}
+\end{document}
