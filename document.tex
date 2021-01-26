@@ -8,6 +8,7 @@
 %Math
 \usepackage[fleqn]{amsmath}
 \usepackage{amssymb, amstext}
+\usepackage{mathtools}
 \usepackage{ifsym}
 \usepackage{xfrac}
 %Units
@@ -304,7 +305,7 @@ Sei $(x_n)$ \underline{beschränkt}.
 Dann ist definiert:
 \begin{align*}
 	\limsup_{n \rightarrow \infty} x_n &:= \lim_{n \rightarrow \infty} (\sup_{k \geq n} x_k) \\
-	\liminf_{n \rightarrow \infty} x_n &:= \lim_{n \rightarrow \infty} (\inf_{k \grq n} n_k)
+	\liminf_{n \rightarrow \infty} x_n &:= \lim_{n \rightarrow \infty} (\inf_{k \geq n} n_k)
 \end{align*}
 Es folgt: $\displaystyle\liminf_{n \rightarrow \infty} x_n  \leq \limsup_{n \rightarrow \infty} x_n$
 
@@ -796,4 +797,117 @@ $g \circ f$ ist in $x_0$ differenzierbar, wenn $f$ in $x_0$ und $g$ in $g(x_0)$ 
 \begin{equation*}
 	(g \circ f)'(x) = g'(f(x_0)) \cdot f'(x_0)
 \end{equation*}
+
+\subsection{Ableitung der Potenzierung}
+Sei $a > 0$ und $h(x) = a^x$ mit $D = \mathbb{R}$. Dann gilt:
+\begin{equation*}
+	\frac{da^x}{x}=a^x\cdot \ln(a)
+\end{equation*}
+
+\addtocounter{subsection}{2}
+\subsection{Umkehrregel}
+Sei $f: [a,b] \rightarrow [c.d]$ bijektiv und sei $y \in [a,b]$ in $f$ differenzierbar (mit $f'(y) \neq 0$).\\
+Es folgt: $f^{-1}$ ist in $x = f(y)$ differenzierbar und:
+\begin{equation*}
+	\left(f^{-1}\right)'(y) = \frac{1}{f'\left(f^{-1}(y)\right)}
+\end{equation*}
+
+\addtocounter{subsection}{3}
+\subsection{Definition Konvergenz von Funktionsfolgen}
+Sei $I \subseteq R^n$ und $f_k$ mit $\forall k \in \mathbb{N}: f_k: I \rightarrow \mathbb{R}$.
+\begin{align*}
+	&\textbf{punktweise Konvergenz:} & &\forall \varepsilon > 0: \forall x \in I: \exists N \in \mathbb{N} : \forall n \geq N: \vert f_n(x)-f(x)\vert < \varepsilon\\
+	&\textbf{gleichmäßige Konvergenz:} & &\forall \varepsilon > 0: \exists N \in \mathbb{N} : \forall x \in I: \forall n \geq N: \vert f_n(x)-f(x)\vert < \varepsilon
+\end{align*}
+Gleichmäßige Konvergenz impliziert damit punktweise Konvergenz. (Aber nicht anders herum, vgl. $f_k(x) = x \geq k \texttt{ ? } 1 \texttt{ : } 0$ mit $f(x) = 0$) \\\\
+Diese Konvergenzbegriffe lassen sich auch auf Reihen anwenden, dann ist $f(x)$ der Grenzwert der Reihe $\sum\limits_{k=0}^\infty f_k(x)$.
+
+\subsection{Differenzierbarkeit \& Ableitung von Funktionsfolgen}
+Sei $I \subseteq R$ offen und $f_k$ eine Funktionsfolge von $I \rightarrow \mathbb{R}$. \\
+Wenn $f_k$ punktweise und $f'_k$ gleichmäßig konvergiert, so ist $f'$ differenzierbar in $I$ und $f'(x) = \lim\limits_{k=1}f'_k$.\\\\
+Für Reihen: Wenn $\sum\limits_{k=0}^\infty f_k$ punktweise und $\sum\limits_{k=0}^\infty f'_k$ gleichmäßig konvergieren, so ist $f'(x) = \sum\limits_{k=0}^\infty f'_k(x)$.
+
+\newpage
+\section{Anwendungen der Ableitung}
+\subsection{Definition Extrema einer Funktion}
+Sei $I = [a,b]$ und $f:I\rightarrow\mathbb{R}$.\\
+\minisec{globale Extrema}
+Sofern existent, heißen das Maximum und Minimum von $f$ auf $I$ globale Extrema.
+\minisec{lokale Extrema}
+$f$ hat in $x_0$ ein lokales Maximum, falls ein $\varepsilon > 0$ existiert, sodass $\forall x \in (x_0 - \varepsilon, x_0 + \varepsilon)\cap I$ gilt: $f(x) \leq f(x_0)$.\\
+$f$ hat in $x_0$ ein strikt lokales Maximum, falls ein $\varepsilon > 0$ existiert, sodass $\forall x \in (x_0 - \varepsilon, x_0 + \varepsilon)\cap I$ mit $x \neq x_0$ gilt: $f(x) < f(x_0)$.\\\\
+Analog das (strikt) lokale Minimum.\\\\
+Jedes globale Extremum ist auch ein entsprechend lokales Extremum.
+
+\subsection{Ableitung an Extrema}
+Sei $f:[a,b] \rightarrow\mathbb{R}$ in $(a,b)$ differenzierbar und $x_0 \in (a,b)$ sei lokales Extremum in $f$.\\
+Dann gilt: $f'(x_0) = 0$.\\\\
+Hinweis: Aus $f'(x) = 0$ folgt nicht sofort ein lokales Extremum in $x$.
+
+\subsection*{Bestimmung von Extrema}
+\addcontentsline{toc}{subsection}{Bestimmung von Extrema}
+Voraussetzung: Bei allen (inneren) Extrema ist $f(x)$ differenzierbar.
+\begin{enumerate}
+	\item Bestimme Nullstellen von $f'$ in $(a,b)$
+	\item Filtere lokale Extrema heraus
+	\item Untersuche Verhalten von $f$ in den Randpunkten
+	\item Bestimme größtes/kleinstes Extrema als jeweils globales Maximum/Minimum
+\end{enumerate}
+
+\addtocounter{subsection}{3}
+\subsection{Satz von Rolle}
+Sei $f :[a,b] \rightarrow \mathbb{R}$ stetig und differenzierbar in $(a,b)$.\\
+Falls $f(a) = f(b)$, so $\exists z \in (a,b)$ mit $f'(z) = 0$.
+
+\subsection{(erweiterter) Mittelwertsatz}
+Seien $f,g : [a,b] \rightarrow \mathbb{R}$ stetig auf $[a,b]$ und differenzierbar in $(a,b)$, wobei $\forall x \in (a,b) : g'(x) \neq 0$.\\
+Dann gilt: $g(a) \neq g(b)$ und $\exists z \in (a,b)$ mit $g'(z)\cdot\left(f(b) - f(a)\right) = f'(z)\cdot\left(g(b)-g(a)\right)$ bzw. $\frac{f(b)-f(a)}{g(b)-g(a)} = \frac{f'(z)}{g'(z)}$.\\\\
+Spezialfall $g(x) = x$: $\exists z \in (a,b)$ mit $\frac{f(b)-f(a)}{b-a}=f'(z)$.
+
+\subsection*{Zwischenwertsatz für Ableitungen}
+Sei $f : [a,b] \rightarrow \mathbb{R}$ differenzierbar.\\
+Dann gilt: $\forall c \in [f(a),f(b)] : \exists x \in [a,b] : f'(x) = c$. 
+\subsection{Monotonie und Ableitung}
+Sei $f : [a,b] \rightarrow \mathbb{R}$ differenzierbar in $(a,b)$.\\
+Dann gilt:
+\begin{enumerate}
+	\item $f'>0$ in $(a,b)$ $\Rightarrow$ $f$ in $(a,b)$ streng monoton wachsend
+	\item $f'<0$ in $(a,b)$ $\Rightarrow$ $f$ in $(a,b)$ streng monoton fallend	
+	\item $f'\geq0$ in $(a,b)$ $\Rightarrow$ $f$ in $(a,b)$ monoton wachsend
+	\item $f'\leq0$ in $(a,b)$ $\Rightarrow$ $f$ in $(a,b)$ monoton fallend
+	\item $f' = 0$ in $(a,b)$ $\Rightarrow$ $f$ in $(a,b)$ konstant
+\end{enumerate}
+Falls $f$ in $a$ oder $b$ stetig, so können diese Randpunkte jeweils hinzugenommen werden.\\
+
+\addtocounter{subsection}{2}
+\subsection{Kriterium für Extrema}
+Sei $f$ differenzierbar in $(a,b)$ und $x_0 \in (a,b)$ mit $f'(x_0) = 0$.\\
+Dann gilt:
+\begin{enumerate}
+	\item $f' \geq 0$ in $(a,x_0)$ und $f'\leq 0$ in$(x_0,b)$ $\Rightarrow$ $x_0$ lokales Maximum in $f$
+	\item $f' \leq 0$ in $(a,x_0)$ und $f'\geq 0$ in$(x_0,b)$ $\Rightarrow$ $x_0$ lokales Minimum in $f$
+\end{enumerate}
+
+\subsection{Regel von l'Hospital}
+Seien $f,g : (a,b) \rightarrow \mathbb{R}$ differenzierbar (wobei $a = -\infty$ und/oder $b = \infty$ erlaubt) mit $\forall x \in(a,b) : g'(x) \neq 0$ und sei $x_0 \in \{a,b\}$.\\
+Falls
+\begin{itemize}
+	\item $\lim\limits_{x \rightarrow x_0} f(x) = 0$ und $\lim\limits_{x \rightarrow x_0} g(x) = 0$ oder
+	\item $\lim\limits_{x \rightarrow x_0} f(x) = \infty$ und $\lim\limits_{x \rightarrow x_0} g(x) = \infty$,
+\end{itemize}
+und falls $\exists \lim\limits_{x \rightarrow x_0} \frac{f'(x)}{g'(x)}$, so gilt:
+\begin{equation*}
+	\lim\limits_{x \rightarrow x_0} \frac{f(x)}{g(x)} = \lim\limits_{x \rightarrow x_0} \frac{f'(x)}{g'(x)}
+\end{equation*}
+
+\addtocounter{subsection}{7}
+\subsection{Definition Konvexität}
+Sei $I$ ein Interval und $f : I \rightarrow \mathbb{R}$.\\
+Wenn $\forall x,y \in I$ und $\forall \alpha \in [0,1]$ gilt:
+\begin{itemize}
+	\item konvex, falls $f(\alpha x + (1 - \alpha)y) \leq \alpha f(x) + (1 - \alpha)f(y)$
+	\item streng konvex, falls $f(\alpha x + (1 - \alpha)y) < \alpha f(x) + (1 - \alpha)f(y)$
+	\item konkav, falls $f(\alpha x + (1 - \alpha)y) \geq \alpha f(x) + (1 - \alpha)f(y)$
+	\item streng konkav, falls $f(\alpha x + (1 - \alpha)y) > \alpha f(x) + (1 - \alpha)f(y)$
+\end{itemize}
 \end{document}
