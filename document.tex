@@ -45,6 +45,7 @@
 
 %Declare further math operators
 \newcommand{\join}[2]{{\tiny \; \textifsym{|><|}}\,_{#1=#2}}
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
 \DeclareMathOperator*{\bigtimes}{\mathop{\raisebox{-.5ex}{\hbox{\huge{$\times$}}}}}
 \DeclareMathOperator{\nequiv}{\not\equiv}
 \newcommand{\smallvector}[2]{{\big (}{\tiny \begin{matrix} #1\\ #2 \end{matrix}}{\big )}}
@@ -262,8 +263,8 @@ Man schreibt:
 \end{align*}
 $x_n$ heißt konvergent gdw. ein Grenzwert existiert.
 
-\subsection{maximal ein Grenzwert}
-Jede reelle Folge hat max. einen Grenzwert. Wer lesen kann, ist klar im Vorteil. Und wer das hier jetzt noch immer liest, ist doof.
+\subsection{Eindeutigkeit eines Grenzwerts}
+Jede reelle Folge hat max. einen Grenzwert.
 
 \subsection{Beschränkung des Grenzwerts}
 Falls $(x_n)_n \rightarrow x$ und $(y_n)_n \rightarrow y$ beschränkte Folgen mit $\forall n: \; x_n \leq y_n$, so gilt $x \leq y$.
@@ -900,14 +901,167 @@ und falls $\exists \lim\limits_{x \rightarrow x_0} \frac{f'(x)}{g'(x)}$, so gilt
 	\lim\limits_{x \rightarrow x_0} \frac{f(x)}{g(x)} = \lim\limits_{x \rightarrow x_0} \frac{f'(x)}{g'(x)}
 \end{equation*}
 
-\addtocounter{subsection}{7}
+\setcounter{subsection2}{\value{subsection}}
+\section*{Konvexität und Jensen'sche Ungleichung}
+\addcontentsline{toc}{subsection}{Konvexität und Jensen'sche Ungleichung}
+\setcounter{subsection}{\value{subsection2}}
+
+\addtocounter{subsection}{2}
+\subsection{Definition zweimal und stetig differenzierbar}
+Sei $f$ eine Funktion. Wir sagen, $f$ ist:
+\begin{itemize}
+	\item \textit{zweimal differenzierbar}, falls $f$ und $f'$ differenzierbar
+	\item \textit{stetig differenzierbar}, falls $f$ differenzierbar und $f'$ stetig
+	\item \textit{zweimal stetig differenzierbar}, falls $f$ zweimal differenzierbar und $f''$ stetig
+\end{itemize}
+
+\addtocounter{subsection}{3}
 \subsection{Definition Konvexität}
 Sei $I$ ein Interval und $f : I \rightarrow \mathbb{R}$.\\
 Wenn $\forall x,y \in I$ und $\forall \alpha \in [0,1]$ gilt:
 \begin{itemize}
-	\item konvex, falls $f(\alpha x + (1 - \alpha)y) \leq \alpha f(x) + (1 - \alpha)f(y)$
-	\item streng konvex, falls $f(\alpha x + (1 - \alpha)y) < \alpha f(x) + (1 - \alpha)f(y)$
-	\item konkav, falls $f(\alpha x + (1 - \alpha)y) \geq \alpha f(x) + (1 - \alpha)f(y)$
-	\item streng konkav, falls $f(\alpha x + (1 - \alpha)y) > \alpha f(x) + (1 - \alpha)f(y)$
+	\item \makebox[2.5cm]{konvex,\hfill} falls $f(\alpha x + (1 - \alpha)y) \leq \alpha f(x) + (1 - \alpha)f(y)$
+	\item \makebox[2.5cm]{streng konvex,\hfill} falls $f(\alpha x + (1 - \alpha)y) < \alpha f(x) + (1 - \alpha)f(y)$
+	\item \makebox[2.5cm]{konkav,\hfill} falls $f(\alpha x + (1 - \alpha)y) \geq \alpha f(x) + (1 - \alpha)f(y)$
+	\item \makebox[2.5cm]{streng konkav,\hfill} falls $f(\alpha x + (1 - \alpha)y) > \alpha f(x) + (1 - \alpha)f(y)$
 \end{itemize}
+
+\addtocounter{subsection}{-2}
+\subsection{monoton wachsende Ableitung $\leftrightarrow$ konvex}
+Sei $f: (a,b) \rightarrow \mathbb{R}$ in $(a,b)$ differenzierbar.\\
+$f'$ ist in $(a,b)$ monoton wachsend gdw. $f$ konvex in $(a,b)$.
+
+\stepcounter{subsection}
+\subsection{zweite Ableitung $\rightarrow$ Konvexität}
+Sei $f : (a,b) \rightarrow \mathbb{R}$ zweimal differenzierbar. Dann folgt:
+\begin{itemize}
+	\item $f''$ nicht negativ $\rightarrow$ $f$ ist konvex
+	\item $f''$ positiv $\rightarrow$ $f$ ist streng konvex
+	\item $f''$ nicht positiv $\rightarrow$ $f$ ist konkav
+	\item $f''$ negativ $\rightarrow$ $f$ ist streng konkav
+\end{itemize}
+
+\subsection{Ungleichung auf Folge der Konvexität}
+Sei $f : (a,b) \rightarrow \mathbb{R}$ in $(a,b)$ differenzierbar. \\
+Dann gilt $\forall x_0, x_1 \in (a,b)$:
+\begin{itemize}
+	\item Falls $f$ konvex:
+	\begin{equation*}
+	f(x_0) + f'(x_0) \cdot (x_1 - x_0) \leq f(x_1)
+	\end{equation*}
+	\item Falls $f$ konkav:
+	\begin{equation*}
+	f(x_0) + f'(x_0) \cdot (x_1 - x_0) \geq f(x_1)
+	\end{equation*}
+	\item Wenn $f$ darüber hinaus streng konvex / streng konkav, so gilt:
+	\begin{equation*}
+	f(x_0) + f'(x_0) \cdot (x_1 - x_0) = f(x_1) \text{ gdw. } x_0 = x_1
+	\end{equation*}
+	
+\end{itemize}
+
+\subsection*{Jensen'sche Ungleichung}
+\addcontentsline{toc}{subsection}{Jensen'sche Ungleichung}
+Sei $f : (a,b) \rightarrow \mathbb{R}$, $n \geq 2$, seien $x_1, ..., x_n \in (a,b)$ und seien $p_1, ..., p_n > 0$ mit $\sum p_i = 1$.\\
+Dann gilt:
+\begin{itemize}
+	\item Falls $f$ konvex:
+	\begin{equation*}
+	f\left(\sum_{k=1}^{n}p_kx_k\right) \leq \sum_{j=1}^{n}p_kf(x_k)
+	\end{equation*}
+	\item Falls $f$ konkav:
+	\begin{equation*}
+	f\left(\sum_{k=1}^{n}p_kx_k\right) \geq \sum_{j=1}^{n}p_kf(x_k)
+	\end{equation*}
+	\item Wenn $f$ streng konvex / streng konkav, so gilt:
+	\begin{equation*}
+	f\left(\sum_{k=1}^{n}p_kx_k\right) = \sum_{j=1}^{n}p_kf(x_k) \text{ gdw. } x_1 = x_2 = ... = x_n
+	\end{equation*}
+\end{itemize}
+
+\subsection*{Ungleichung zwischen arithmetischem und geometrischem Mittel}
+Seien $x_1,...,x_n > 0$ und seien $p_1, ..., p_n > 0$ mit $\sum p_i = 1$. Dann gilt:
+\begin{equation*}
+	\prod_{k=1}^{n}(x_k)^{p_k} \leq \sum_{k=1}^{n}p_kx_k
+\end{equation*}
+
+\newpage
+\section{Integration}
+
+\subsection*{Definition Unter- und Oberintegral}
+Sei $f: [a,b] \rightarrow \mathbb{R}$ beschränkt.\\
+Sei $Z := \{x_0, x_1, ..., x_n\}$ eine Zerlegung von $[a,b]$ mit den Grenzen $x_i$, wobei $x_0 < ... < x_n$.\\
+Sei $m_i = \inf\limits_{x \in [x_i-1, xi]} f(x)$ und $M_i = \sup\limits_{x \in [x_i-1, xi]} f(x)$.\\
+Definition Untersumme $U_Z(f)$ und Obersumme $O_Z(f)$:
+\begin{align*}
+	U_Z(f) &:= \int_{a}^{b}\varphi(x) \dif x & &\text{mit } \varphi(x) = m_i \text{ für } x \in (x_{i-1}, x_i) & &\\
+	O_Z(f) &:= \int_{a}^{b}\psi(x) \dif x & &\text{mit } \psi(x) = M_i \text{ für } x \in (x_{i-1}, x_i) & &
+\end{align*}
+Wobei hier das Integral stufenweise berechnet werden kann, indem für jeden Teil der Zerlegung der Flächeninhalt des Rechtecks betrachtet wird.\\\\ 
+Definition Unterintegral $U(f)$ und Oberintegral $O(f)$:
+\begin{align*}
+	U(f) &:= \sup\; \{U_Z(f) : Z \text{ ist Zerlegung von } [a,b]\}\\
+	O(f) &:= \inf\; \{O_Z(f) : Z \text{ ist Zerlegung von } [a,b]\}
+\end{align*}
+
+\stepcounter{subsection}
+\subsection{Definition Integral}
+Sei $f: [a,b] \rightarrow \mathbb{R}$ beschränkt. \\
+Falls $U(f) = O(f)$, so heißt $f$ \textit{integrierbar} und es wird definiert:
+\begin{equation*}
+	\int_{a}^{b} f(x) \dif x = U(f) = O(f)
+\end{equation*}
+
+\subsection{Integrierbarkeit stetiger Funktionen}
+Jede stetige Funktion $f: [a,b] \rightarrow \mathbb{R}$ ist integrierbar.
+
+\subsection{Integrierbarkeit monotoner Funktionen}
+Jede monotone Funktion $f: [a,b] \rightarrow \mathbb{R}$ ist integrierbar.
+
+\subsection{Alternative Definition Integrierbarkeit}
+Sei $f: [a,b] \rightarrow \mathbb{R}$ beschränkt.\\
+$f$ ist integrierbar gdw. $\forall \varepsilon > 0 : \exists Z$ Zerlegung, sodass:
+\begin{equation*}
+	O_Z(f) - U_Z(f) < \varepsilon
+\end{equation*}
+
+\subsection{gleichmäßige Stetigkeit}
+Sei $f : [a,b] \rightarrow \mathbb{R}$ stetig. Es gilt:
+\begin{equation*}
+	\forall \varepsilon > 0 : \exists \delta > 0 : \forall x,y \in [a,b] \text{ mit } | x - y | < \delta : |f(x) - f(y)| < \varepsilon
+\end{equation*}
+ 
+\subsection{Eigenschaften und Rechenregeln des Integrals}
+\begin{enumerate}
+	\item \textbf{Linearität}\\
+	Seien $f,g:[a,b] \rightarrow\mathbb{R}$ integrierbar und $\alpha, \beta \in \mathbb{R}$.\\
+	Dann ist auch $\alpha f + \beta g$ integrierbar und
+	\begin{equation*}
+		\int_{a}^{b}\alpha f(x) + \beta g(x) \dif x = \alpha \int_{a}^bf(x)\dif x + \beta \int_a^bg(x)\dif x
+	\end{equation*}
+	\item \textbf{Monotonie}\\
+	Seien $f,g:[a,b] \rightarrow\mathbb{R}$ integrierbar mit $\forall x \ in [a,b] : f(x) \leq g(x)$.\\
+	Dann gilt:
+	\begin{equation*}
+		\int_a^bf(x)\dif x \leq \int_a^bg(x)\dif x
+	\end{equation*}
+	\item \textbf{Zerlegbarkeit}\\
+	Sei $a < c < b$ und $f : [a,b] \rightarrow\mathbb{R}$.\\
+	$f$ ist integrierbar auf $[a,b]$ gdw. $f$ auf $[a,c]$ und auf $[c,b]$ integrierbar.\\
+	Es gilt dann:
+	\begin{equation*}
+		\int_a^bf(x)\dif x = \int_a^cf(x)\dif x + \int_c^bf(x)\dif x
+	\end{equation*}
+\end{enumerate}
+
+\subsection{Integral mit \glqq verdrehtem\grqq{} Intervall}
+Sei $a \leq b$ und $f: [a,b] \rightarrow \mathbb{R}$. Dann definieren wir:\\
+\begin{equation*}
+	\int_b^af(x)\dif x := - \int_a^bf(x)\dif x
+\end{equation*}
+Damit gilt die Zerlegbarkeit auch für alle $a,b,c \in \mathbb{R}$.\\\\
+Aus der Definition folgt:
+\begin{equation*}
+	\int_{a}^{a}f(x) \dif x = 0
+\end{equation*}
 \end{document}
