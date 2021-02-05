@@ -1,4 +1,4 @@
-% !TeX spellcheck = en_US %de_DE
+% !TeX spellcheck = de_DE
 \documentclass[halfparscip]{scrartcl}
 
 %German language
@@ -240,7 +240,7 @@ Seien $z_1 = x_1 + y_2i, z_2 = x_2 + y_2i \in \mathbb{C}$ komplexe Zahlen. Wir d
 \end{itemize}
 
 \newpage
-\section{Folgen und Stetigkeit}
+\section{Folgen}
 
 \subsection{Definition Folge}
 Eine Folge mit Werten ist eine Abbildung $\mathbb{N}^+ \rightarrow M$, wobei $M$ eine beliebige Menge.\\
@@ -991,7 +991,7 @@ Seien $x_1,...,x_n > 0$ und seien $p_1, ..., p_n > 0$ mit $\sum p_i = 1$. Dann g
 \subsection*{Definition Unter- und Oberintegral}
 Sei $f: [a,b] \rightarrow \mathbb{R}$ beschränkt.\\
 Sei $Z := \{x_0, x_1, ..., x_n\}$ eine Zerlegung von $[a,b]$ mit den Grenzen $x_i$, wobei $x_0 < ... < x_n$.\\
-Sei $m_i = \inf\limits_{x \in [x_i-1, xi]} f(x)$ und $M_i = \sup\limits_{x \in [x_i-1, xi]} f(x)$.\\
+Sei $m_i = \inf\limits_{x \in [x_{i-1}, x_i]} f(x)$ und $M_i = \sup\limits_{x \in [x_{i-1}, x_i]} f(x)$.\\
 Definition Untersumme $U_Z(f)$ und Obersumme $O_Z(f)$:
 \begin{align*}
 	U_Z(f) &:= \int_{a}^{b}\varphi(x) \dif x & &\text{mit } \varphi(x) = m_i \text{ für } x \in (x_{i-1}, x_i) & &\\
