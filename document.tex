@@ -388,11 +388,11 @@ Eine Reihe mit den Gliedern $a_k$ heißt alternierend, falls die Glieder abwechs
 Wir nehmen an: $a_0 > 0$.
 
 \subsection{Leibnitzkriterium}
-Sei $(a_n)_{n\geq0}$ eine monoton fallende Folge in $\mathbb{R}$ mit $a \xrightarrow[n \rightarrow \infty]{} 0$.\\
+Sei $(a_n)_{n\geq0}$ eine monoton fallende Folge in $\mathbb{R}$ mit $a \xrightarrow[n \rightarrow \infty]{} 0$ und sei $S_n = \sum\limits_{k=0}^n(-1)^ka_k$.\\
 Dann konvergiert die Reihe $\sum\limits_{k=0}^\infty(-1)^ka_k$.\\
-Es gilt:
+Es gilt $\forall n \in \mathbb{N}$:
 \begin{equation*}
-	\left\vert \sum_{k=0}^{\infty}(-1)^na_k-Sn\right\vert = \left\vert \sum_{k=n+1}^{\infty}(-1)^ka_k\right\vert \leq a_{n+1}
+	\left\vert \sum_{k=0}^{\infty}(-1)^ka_k-S_n\right\vert = \left\vert \sum_{k=n+1}^{\infty}(-1)^ka_k\right\vert \leq a_{n+1}
 \end{equation*}
 
 \subsection{Absolute Konvergenz}
@@ -400,15 +400,22 @@ $\sum\limits_{k=0}^na_k$ mit $a_k \in \mathbb{C}$ heißt absolut konvergent, fal
 Eine Reihe, die konvergiert, aber nicht absolut konvergiert, heißt bedingt konvergent.
 
 \subsection{Umordnungssatz}
-Sei $\sigma: \mathbb{N} \rightarrow \mathbb{N}$ eine Permutation.
+Sei $a_k$ eine Folge mit $a_k \in \mathbb{C}$.
 \begin{equation*}
-	\sum_{k=1}^na_k \text{ konvergiert gdw. } \sum_{k=1}^\infty a_{\sigma(k)} = \sum_{k=1}^\infty a_k
+	\sum_{k=1}^na_k \text{ konvergiert gdw. } \forall\sigma: \mathbb{N} \rightarrow \mathbb{N} \;:\; \sum_{k=1}^\infty a_{\sigma(k)} = \sum_{k=1}^\infty a_k
 \end{equation*}
 
 \subsubsection*{Beliebigkeit der Ergebnisse bei Änderung der Summationsreihenfolge}
-Sei $\sum\limits_{n=1}^{\infty}a_n$ eine bedingt konvergente Reihe und sei $x \in \mathbb{R}$. Dann $\exists \sigma$ Permutation, sodass $\sum\limits_{n=1}^{\infty}a_{\sigma(n)} = x$.
-
-\noindent Es gibt auch eine Permutation $\sigma$, sodass $\sum\limits_{n=1}^{\infty}a_{\sigma(n)}$ gegen $+\infty$ konvergiert, eine, sodass es gegen $-\infty$ konvergiert und eine, wo $\limsup \sum\limits_{k=1}^{n}a_{\sigma(k)} \neq \liminf \sum\limits_{k=1}^{n}a_{\sigma(n)}$.
+Sei $\sum\limits_{n=1}^{\infty}a_n$ eine bedingt konvergente Reihe.\\
+Dann existiert je eine Permutation $\sigma$, sodass
+\begin{itemize}
+	\item $\forall x \in \mathbb{R} \;:\; \sum\limits_{n=1}^{\infty}a_{\sigma(n)} = x$
+	\item $\sum\limits_{n=1}^{\infty}a_{\sigma(n)} = -\infty$ oder $\sum\limits_{n=1}^{\infty}a_{\sigma(n)} = \infty$
+	\item $\limsup \sum\limits_{k=1}^{n}a_{\sigma(k)} \neq \liminf \sum\limits_{k=1}^{n}a_{\sigma(k)}$
+\end{itemize}
+%und sei $x \in \mathbb{R}$. Dann $\exists \sigma$ Permutation, sodass $\sum\limits_{n=1}^{\infty}a_{\sigma(n)} = x$.
+%
+%\noindent Es gibt auch eine Permutation $\sigma$, sodass $\sum\limits_{n=1}^{\infty}a_{\sigma(n)}$ gegen $+\infty$ konvergiert, eine, sodass es gegen $-\infty$ konvergiert und eine, wo $\limsup \sum\limits_{k=1}^{n}a_{\sigma(k)} \neq \liminf \sum\limits_{k=1}^{n}a_{\sigma(k)}$.
 
 \subsection{Doppelreihensatz}
 Seien $a_{i,j} \in \mathbb{C}$ mit $i,j \in \mathbb{N}$. Falls $\sum\limits_{i=0}^{\infty}\sum\limits_{j=0}^\infty\vert a_{i,j}\vert < \infty$, dann konvergiert $\sum\limits_{i=0}^{\infty}\sum\limits_{j=0}^\infty a_{i,j}$ und
@@ -431,7 +438,7 @@ wobei $c_m = \sum\limits_{k=0}^ma_kb_{m-k}$ die Definition des Cauchy-Produkts.
 \begin{equation*}
 	\exp(z) = \sum_{k=0}^\infty\frac{z^k}{k\!} \hspace{1cm}\forall z \in \mathbb{C}
 \end{equation*}
-Dabei gilt: $\exp(x) = e^x$ mit $e$ die Eulersche Zahl $\forall x \in \mathbb{R}$.
+Dabei gilt: $\exp(z) = e^z$ mit $e$ die Eulersche Zahl $\forall z \in \mathbb{C}$.
 
 \subsection{Rechenregeln der Exponentialfunktion}
 Seien $z \in \mathbb{C}$, $x \in \mathbb{R}$ und $n \in \mathbb{N}$. Dann gelten:
@@ -495,7 +502,7 @@ Die Exponentialfunktion $\exp$ ist stetig auf $\mathbb{C}$.
 
 \subsection{Komposition stetiger Funktionen}
 Seien $f: D_f \rightarrow R$, $g : D_g \rightarrow \mathbb{R}$ und $f(D_f) \subseteq D_g$ \footnote{$f(A) := \left\{f(x) \;\vert\; x \in A\right\}$}.\\
-$\forall x \in D_f$: Wenn $f$ stetig in $x$ nd $g$ stetig in $f(x)$, so ist auch $g \circ f$ stetig in $x$.
+$\forall x \in D_f$: Wenn $f$ stetig in $x$ und $g$ stetig in $f(x)$, so ist auch $g \circ f$ stetig in $x$.
 
 \subsection{Definition linksseitiger / rechtsseitiger Grenzwert / Stetigkeit}
 Seien $D \subseteq \mathbb{R}$, $f : D \rightarrow \mathbb{R}$ und $a \in D$ nicht isoliert.\\
