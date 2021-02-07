@@ -583,8 +583,19 @@ Dann folgt: $\lim\limits_{x \rightarrow a} f(x) \cdot g(x) = 0$.
 \subsection*{Polarkoordinaten}
 \addcontentsline{toc}{subsection}{Polarkoordinaten}
 Sei $z \in \mathbb{C} \backslash \{0\}$. Dann gibt es $r, \phi \in \mathbb{R}$, sodass $r = \vert z\vert$ und $e^{i\phi} = \frac{z}{r}$ (da $\vert\frac{z}{r}\vert = 1$).\\
-$r$ und $\phi$ heißen Polarkoordinaten von $\phi$: $r$ ist der Abstand von $z$ zum Nullpunkt, $\phi$ der Winkel zur reellen Achse. Die Abbildung Polarkoordinaten $\leftrightarrow$ Real- und Imaginärteil ist bijektiv.\\
-Die Multiplikation in Polarkoordinaten\footnote{Ich (Josef) schreibe: $r \angle \phi$ für $r \cdot e^{i\phi}$}: $z_1 = r_1 \angle \phi_1$, $z_2 = r_2 \angle \phi_2$. Es folgt: $z_1 + z_2 = (r_1\cdot r_2) \angle (\phi_1 + \phi_2)$
+$r$ und $\phi$ heißen Polarkoordinaten von $z$: $r$ ist der Abstand von $z$ zum Nullpunkt, $\phi$ der Winkel zur reellen Achse. Die Abbildung Polarkoordinaten $\leftrightarrow$ Real- und Imaginärteil ist bijektiv.\\
+Die Multiplikation in Polarkoordinaten\footnote{Ich (Josef) schreibe: $r \angle \phi$ für $r \cdot e^{i\phi}$}: $z_1 = r_1 \angle \phi_1$, $z_2 = r_2 \angle \phi_2$. Es folgt: $z_1 \cdot z_2 = (r_1\cdot r_2) \angle (\phi_1 + \phi_2)$
+
+\subsection*{Nützliche Rechenregeln}
+\addcontentsline{toc}{subsection}{Nützliche Rechenregeln}
+\begin{itemize}
+	\item $\sin 2\alpha = 2\sin \alpha \cos \alpha$
+	\item $\cos 2 \alpha = \cos^2\alpha - \sin^2\alpha = 2\cos^2 \alpha - 1$
+	\item $\begin{aligned}[t]
+		\sin(\alpha + \beta) &= \sin \alpha \cos \beta + \cos\alpha\sin\beta & \sin(\alpha - \beta) &= \sin \alpha \cos \beta - \cos\alpha\sin\beta \\
+		\cos(\alpha + \beta) &= \cos \alpha \cos \beta - \sin\alpha\sin\beta & \cos(\alpha - \beta) &= \cos \alpha \cos \beta + \sin\alpha\sin\beta
+	\end{aligned}$
+\end{itemize}
 
 \newpage
 \section{Konsequenzen der Stetigkeit}
