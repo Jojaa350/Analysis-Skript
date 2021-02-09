@@ -750,7 +750,7 @@ Hinweis: $D$ ist offen falls alle $x_0 \in D$ innere Punkte von $D$ sind.
 Sei $D \subseteq \mathbb{R}, f: D \rightarrow \mathbb{R}$ und $x_0$ innerer Punkt in $D$.\\
 $f$ heißt Differenzierbar in $x_0$, wenn:
 \begin{equation*}
-	\exists f'(x_0) \;:\; \forall x \in D \text{ mit } x \rightarrow x_0 \;:\; f(x) = f(x_0) + f'(x_0)(x-x_0)+o(x-x_0)
+	\exists f'(x_0) \;:\; x \in D \text{ mit } \lim_{n \rightarrow \infty}x = x_0 \;:\; f(x) = f(x_0) + f'(x_0)(x-x_0)+o(x-x_0)
 \end{equation*}
 $f'(x)$ heißt die Ableitung von $f$ und beschreibt die Steigung der Tangenten an $f(x)$.\\
 Ausgeschrieben lautet die Definition:
@@ -766,7 +766,7 @@ $f$ heißt differenzierbar in $D$, falls $f$ differenzierbar in $x$, $\forall x 
 \subsection{Differenzierbarkeit $\rightarrow$ Stetigkeit}
 Sei $D \subseteq \mathbb{R}$, $x_0 \in D$ und $f : D \rightarrow \mathbb{R}$ differenzierbar in $x_0$.\\
 Dann ist $f$ stetig in $x_0$.\\\\
-\underline{Wichtig:} Die Umkehrung gilt nicht, d.h. aus Differenzierbarkeit lässt nicht auf Stetigkeit schließen!
+\underline{Wichtig:} Die Umkehrung gilt nicht, d.h. aus Stetigkeit lässt nicht auf Differenzierbarkeit schließen! Bsp: $f(x) = \vert x\vert$ an $x = 0$
 
 \stepcounter{subsection}
 \subsection{Definition rechts- \& linksseitige Ableitung}
@@ -798,7 +798,7 @@ $D$ ist linear, d.h. $(a f)'(x) = a \cdot f'(x)$ und $(f + g)'(x) = f'(x) + g'(x
 \subsection{Produktregel}
 Sei $x \in \mathbb{R}$ und seien $f, g: \mathbb{R} \rightarrow \mathbb{R}$ differenzierbar in $x$.\\
 \begin{equation*}
-	(f \cdot f)'(x) = f'(x)\cdot g(x) + f(x)\cdot g'(x)
+	(f \cdot g)'(x) = f'(x)\cdot g(x) + f(x)\cdot g'(x)
 \end{equation*}
 Daraus folgt auch: $(x^n)' = n \cdot x^{n-1}$.
 
@@ -825,7 +825,7 @@ Sei $a > 0$ und $h(x) = a^x$ mit $D = \mathbb{R}$. Dann gilt:
 
 \addtocounter{subsection}{2}
 \subsection{Umkehrregel}
-Sei $f: [a,b] \rightarrow [c.d]$ bijektiv und sei $y \in [a,b]$ in $f$ differenzierbar (mit $f'(y) \neq 0$).\\
+Sei $f: [a, b] \rightarrow [c, d]$ bijektiv und sei $y \in [a, b]$ in $f$ differenzierbar (mit $f'(y) \neq 0$).\\
 Es folgt: $f^{-1}$ ist in $x = f(y)$ differenzierbar und:
 \begin{equation*}
 	\left(f^{-1}\right)'(y) = \frac{1}{f'\left(f^{-1}(y)\right)}
@@ -833,7 +833,7 @@ Es folgt: $f^{-1}$ ist in $x = f(y)$ differenzierbar und:
 
 \addtocounter{subsection}{3}
 \subsection{Definition Konvergenz von Funktionsfolgen}
-Sei $I \subseteq R^n$ und $f_k$ mit $\forall k \in \mathbb{N}: f_k: I \rightarrow \mathbb{R}$.
+Sei $I \subseteq R^n$ und $f_k$ mit $\forall k \in \mathbb{N}: f_k: I \rightarrow \mathbb{R}$. Wir definieren den Grenzwert $f : I \rightarrow \mathbb{R}$:
 \begin{align*}
 	&\textbf{punktweise Konvergenz:} & &\forall \varepsilon > 0: \forall x \in I: \exists N \in \mathbb{N} : \forall n \geq N: \vert f_n(x)-f(x)\vert < \varepsilon\\
 	&\textbf{gleichmäßige Konvergenz:} & &\forall \varepsilon > 0: \exists N \in \mathbb{N} : \forall x \in I: \forall n \geq N: \vert f_n(x)-f(x)\vert < \varepsilon
