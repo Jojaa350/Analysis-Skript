@@ -75,6 +75,11 @@
 	aboveskip={\baselineskip},
 }
 
+% indent the subsections a little to avoid overlap between the number and the title
+\makeatletter
+\renewcommand\l@subsection{\@dottedtocline{2}{1.5em}{2.8em}}
+\makeatother
+
 %Makes Links in Table of contents black.
 \LetLtxMacro{\oldtableofcontents}{\tableofcontents}
 \renewcommand{\tableofcontents}{\hypersetup{linkcolor=black}\oldtableofcontents\hypersetup{linkcolor=linkblue}}
@@ -205,7 +210,7 @@ Seien $\overline{x}, \overline{y}, \overline{z} \in \mathbb{R}^n$ und $\alpha \i
 
 \subsection*{Euklidische Norm}
 \begin{equation*}
-\vert\vert (x_1, \dots, x_n) \vert\vert := \sqrt{(x_1, \dots, x_n)\cdot(x_1, \dots, x_n)} = \sqrt{\sum_{k=1}^{n}x^2_k}
+\vert\vert (x_1, \dots, x_n) \vert\vert \coloneqq \sqrt{(x_1, \dots, x_n)\cdot(x_1, \dots, x_n)} = \sqrt{\sum_{k=1}^{n}x^2_k}
 \end{equation*}
 
 \subsection{Cauchy-Schwarz-Ungleichung}
@@ -228,8 +233,8 @@ Seien $x,y \geq 0$.
 \end{equation*}
 
 \subsection*{Komplexe Zahlen}
-$i := \sqrt{-1}$.\\
-$\mathbb{C} := \left\{x + yi \;\middle|\; x, y \in \mathbb{R}\right\}$\\\\
+$i \coloneqq \sqrt{-1}$.\\
+$\mathbb{C} \coloneqq \left\{x + yi \;\middle|\; x, y \in \mathbb{R}\right\}$\\\\
 Seien $z_1 = x_1 + y_2i, z_2 = x_2 + y_2i \in \mathbb{C}$ komplexe Zahlen. Wir definieren:
 \begin{itemize}
 	\item die Addition: $z_1 + z_2 = (x_1 + x_2) + (y_1 + y_2)i$
@@ -296,7 +301,7 @@ Seien $(x_n)$ und $(y_n)$ Folgen mit $x_n \rightarrow a$ und $y_n \rightarrow b$
 \subsection{Konvergenz gegen Supremum / Infimum}
 Jede monoton wachsende, beschränkte Folge konvergiert gegen ihr Supremum:
 \begin{equation*}
-	x = \lim_{n \rightarrow \infty} x_n = \sup\hspace{0cm}_n(x_n) := \sup(M) \;\; \text{ mit } M := \left\{x_n \;\vert\; x \in \mathbb{N}\right\}
+	x = \lim_{n \rightarrow \infty} x_n = \sup\hspace{0cm}_n(x_n) \coloneqq \sup(M) \;\; \text{ mit } M \coloneqq \left\{x_n \;\vert\; x \in \mathbb{N}\right\}
 \end{equation*}
 
 \noindent Ebenso konvergiert jede monoton fallende, beschränkte Folge gegen ihr Infimum.
@@ -305,8 +310,8 @@ Jede monoton wachsende, beschränkte Folge konvergiert gegen ihr Supremum:
 Sei $(x_n)$ \underline{beschränkt}.
 Dann ist definiert:
 \begin{align*}
-	\limsup_{n \rightarrow \infty} x_n &:= \lim_{n \rightarrow \infty} (\sup_{k \geq n} x_k) \\
-	\liminf_{n \rightarrow \infty} x_n &:= \lim_{n \rightarrow \infty} (\inf_{k \geq n} n_k)
+	\limsup_{n \rightarrow \infty} x_n &\coloneqq \lim_{n \rightarrow \infty} (\sup_{k \geq n} x_k) \\
+	\liminf_{n \rightarrow \infty} x_n &\coloneqq \lim_{n \rightarrow \infty} (\inf_{k \geq n} n_k)
 \end{align*}
 Es folgt: $\displaystyle\liminf_{n \rightarrow \infty} x_n  \leq \limsup_{n \rightarrow \infty} x_n$
 
@@ -334,12 +339,12 @@ $(x_n)$ konvergiert gdw.
 \subsection{Definition Reihe}
 Sei $a_n$ eine (komplexe) Folge. Die Folge 
 \begin{equation*}
-	s_n := a_0 + ... + a_n = \sum_{k=0}^{n}a_k
+	s_n \coloneqq a_0 + ... + a_n = \sum_{k=0}^{n}a_k
 \end{equation*}
 heißt unendliche Reihe (kurz: Reihe) mit den Gliedern $a_n$ und den Partialsummen $s_n$.\\\\
 Falls $s_n$ konvergent:
 \begin{equation*}
-	s = \lim_{n \rightarrow \infty} s_n := \sum_{k=0}^{\infty}a_k
+	s = \lim_{n \rightarrow \infty} s_n \coloneqq \sum_{k=0}^{\infty}a_k
 \end{equation*}
 $s$ heißt die Summe oder der Wert der Reihe.\\
 Falls $s_n$ reell und geht gegen $+\infty$, so schreiben wir:
@@ -501,7 +506,7 @@ Damit sind endliche Polynome (und Brüche daraus) auf ihrem Definitionsbereich s
 Die Exponentialfunktion $\exp$ ist stetig auf $\mathbb{C}$.
 
 \subsection{Komposition stetiger Funktionen}
-Seien $f: D_f \rightarrow R$, $g : D_g \rightarrow \mathbb{R}$ und $f(D_f) \subseteq D_g$ \footnote{$f(A) := \left\{f(x) \;\vert\; x \in A\right\}$}.\\
+Seien $f: D_f \rightarrow R$, $g : D_g \rightarrow \mathbb{R}$ und $f(D_f) \subseteq D_g$ \footnote{$f(A) \coloneqq \left\{f(x) \;\vert\; x \in A\right\}$}.\\
 $\forall x \in D_f$: Wenn $f$ stetig in $x$ und $g$ stetig in $f(x)$, so ist auch $g \circ f$ stetig in $x$.
 
 \subsection{Definition linksseitiger / rechtsseitiger Grenzwert / Stetigkeit}
@@ -522,8 +527,8 @@ Wir rechnen in Bogenmaßen. Der Einheitskreis ist definiert als $\big\{z \;\big\
 
 \subsection{Definition Sinus / Cosinus}
 \begin{align*}
-	\sin x &:= \frac{\exp(ix) - \exp(-ix)}{2i} \;=\; \sum_{n=0}^{\infty}\frac{(-1)^nx^{2n+1}}{(2n+1)!}\\
-	\cos x &:= \frac{\exp(ix) + \exp(-ix)}{2} \;=\; \sum_{n=0}^{\infty}\frac{(-1)^nx^{2n}}{(2n)!}
+	\sin x &\coloneqq \frac{\exp(ix) - \exp(-ix)}{2i} \;=\; \sum_{n=0}^{\infty}\frac{(-1)^nx^{2n+1}}{(2n+1)!}\\
+	\cos x &\coloneqq \frac{\exp(ix) + \exp(-ix)}{2} \;=\; \sum_{n=0}^{\infty}\frac{(-1)^nx^{2n}}{(2n)!}
 \end{align*}
 Es folgt: $\sin 0 = 0$ und $\cos 0 = 1$\\
 Diese Definition ist im reellen Raum äquivalent zur geometrischen Definition am rechtwinkligen Dreieck.
@@ -571,8 +576,8 @@ Folgerung:
 \subsubsection*{Definition Tangens / Kotangens}
 \addcontentsline{toc}{subsection}{Definition Tangens / Kotangens}
 \begin{align*}
-	\tan x & := \frac{\sin x}{\cos x}                                         \\
-	\cot x & := \frac{\cos x}{\sin x} \underset{\sin x \neq 0}{=} \tan^{-1} x
+	\tan x & \coloneqq \frac{\sin x}{\cos x}                                         \\
+	\cot x & \coloneqq \frac{\cos x}{\sin x} \underset{\sin x \neq 0}{=} \tan^{-1} x
 \end{align*}
 Hinweis: $\tan x$ und $\cot x$ sind periodisch (Periode $\pi$). $\tan \frac{\pi}{2}$ und $\cot 0$ sind nicht definiert.
 
@@ -670,7 +675,7 @@ $f$ ist bijektiv, $f^{-1}$ ist auch stetig und streng monoton wachsend.
 
 \subsection{Definition natürlicher Logarithmus}
 \begin{equation*}
-	\ln := \exp^{-1} \text{ mit } \exp: \mathbb{R} \rightarrow (0, \infty)
+	\ln \coloneqq \exp^{-1} \text{ mit } \exp: \mathbb{R} \rightarrow (0, \infty)
 \end{equation*}
 heißt (natürlicher) Logarithmus.
 
@@ -687,17 +692,17 @@ Seien $x,y \in \mathbb{R}, k \in \mathbb{Z}$.
 \subsection{Definition Potenzieren auf $\mathbb{R}$, Wurzelrechnung}
 Sei $x,a \in \mathbb{R}$ mit $x > 0$.
 \begin{equation*}
-	x^a := \exp(a \cdot \ln(x))
+	x^a \coloneqq \exp(a \cdot \ln(x))
 \end{equation*}
 Es gilt: $x^{a+b} = \exp\big((a+b) \cdot \ln(x)\big) = \exp\big(a \ln(x)\big)\cdot \exp\big(b \ln(x)\big) = x^ax^b$.\\\\
-Wir schreiben: $\sqrt[\uproot{1}n]{x} := x^\frac{1}{n}$.\\
+Wir schreiben: $\sqrt[\uproot{1}n]{x} \coloneqq x^\frac{1}{n}$.\\
 Hinweis: Potenzfunktionen sind im Allgemeinen nicht bijektiv, Wurzelfunktion sind daher oft keine vollständige Umkehrfunktion!
 
 \subsection*{Definition Logarithmus zu Basen}
 \addcontentsline{toc}{subsection}{Definition Logarithmus zu Basen}
 Sei $x, b \in \mathbb{R}$ mit $b > 1$.
 \begin{equation*}
-	\log_b(x) := \frac{\ln(x)}{\ln(n)}
+	\log_b(x) \coloneqq \frac{\ln(x)}{\ln(n)}
 \end{equation*}
 ist die Umkehrfunktion von $b^x$ und heißt Logarithmus zur Basis $b$.
 
@@ -1008,22 +1013,22 @@ Seien $x_1,...,x_n > 0$ und seien $p_1, ..., p_n > 0$ mit $\sum p_i = 1$. Dann g
 
 \subsection*{Definition Unter- und Oberintegral}
 Sei $f: [a,b] \rightarrow \mathbb{R}$ beschränkt.\\
-Sei $Z := \{x_0, x_1, ..., x_n\}$ eine Zerlegung von $[a,b]$ mit den Grenzen $x_i$, wobei $x_0 < ... < x_n$.\\
+Sei $Z \coloneqq \{x_0, x_1, ..., x_n\}$ eine Zerlegung von $[a,b]$ mit den Grenzen $x_i$, wobei $x_0 < ... < x_n$.\\
 Sei $m_i = \inf\limits_{x \in [x_{i-1}, x_i]} f(x)$ und $M_i = \sup\limits_{x \in [x_{i-1}, x_i]} f(x)$.\\
 Definition Untersumme $U_Z(f)$ und Obersumme $O_Z(f)$:
 \begin{align*}
-	U_Z(f) &:= \int_{a}^{b}\varphi(x) \dif x & &\text{mit } \varphi(x) = m_i \text{ für } x \in (x_{i-1}, x_i) & &\\
-	O_Z(f) &:= \int_{a}^{b}\psi(x) \dif x & &\text{mit } \psi(x) = M_i \text{ für } x \in (x_{i-1}, x_i) & &
+	U_Z(f) &\coloneqq \int_{a}^{b}\varphi(x) \dif x & &\text{mit } \varphi(x) = m_i \text{ für } x \in (x_{i-1}, x_i) & &\\
+	O_Z(f) &\coloneqq \int_{a}^{b}\psi(x) \dif x & &\text{mit } \psi(x) = M_i \text{ für } x \in (x_{i-1}, x_i) & &
 \end{align*}
 Wobei hier das Integral stufenweise berechnet werden kann, indem für jeden Teil der Zerlegung der Flächeninhalt des Rechtecks betrachtet wird.\\\\ 
 Definition Unterintegral $U(f)$ und Oberintegral $O(f)$:
 \begin{align*}
-	U(f) &:= \sup\; \{U_Z(f) : Z \text{ ist Zerlegung von } [a,b]\}\\
-	O(f) &:= \inf\; \{O_Z(f) : Z \text{ ist Zerlegung von } [a,b]\}
+	U(f) &\coloneqq \sup\; \{U_Z(f) : Z \text{ ist Zerlegung von } [a,b]\}\\
+	O(f) &\coloneqq \inf\; \{O_Z(f) : Z \text{ ist Zerlegung von } [a,b]\}
 \end{align*}
 
 \stepcounter{subsection}
-\subsection{Definition Integral}
+\subsection{Definition bestimmtes Integral}
 Sei $f: [a,b] \rightarrow \mathbb{R}$ beschränkt. \\
 Falls $U(f) = O(f)$, so heißt $f$ \textit{integrierbar} und es wird definiert:
 \begin{equation*}
@@ -1036,6 +1041,7 @@ Jede stetige Funktion $f: [a,b] \rightarrow \mathbb{R}$ ist integrierbar.
 \subsection{Integrierbarkeit monotoner Funktionen}
 Jede monotone Funktion $f: [a,b] \rightarrow \mathbb{R}$ ist integrierbar.
 
+\stepcounter{subsection}
 \subsection{Alternative Definition Integrierbarkeit}
 Sei $f: [a,b] \rightarrow \mathbb{R}$ beschränkt.\\
 $f$ ist integrierbar gdw. $\forall \varepsilon > 0 : \exists Z$ Zerlegung, sodass:
@@ -1075,11 +1081,71 @@ Sei $f : [a,b] \rightarrow \mathbb{R}$ stetig. Es gilt:
 \subsection{Integral mit \glqq verdrehtem\grqq{} Intervall}
 Sei $a \leq b$ und $f: [a,b] \rightarrow \mathbb{R}$. Dann definieren wir:\\
 \begin{equation*}
-	\int_b^af(x)\dif x := - \int_a^bf(x)\dif x
+	\int_b^af(x)\dif x \coloneqq - \int_a^bf(x)\dif x
 \end{equation*}
 Damit gilt die Zerlegbarkeit auch für alle $a,b,c \in \mathbb{R}$.\\\\
 Aus der Definition folgt:
 \begin{equation*}
 	\int_{a}^{a}f(x) \dif x = 0
 \end{equation*}
+
+\subsection{Hauptsatz der Differential- und Integralrechnung}\label{Integration:Hauptsatz}
+Sei $f : [a, b] \rightarrow \mathbb{R}$ stetig und sei $c \in [a, b]$. Dann ist
+\begin{equation*}
+	F(x) = \int_{c}^{x}f(t)\dif t \;\eqqcolon\; \int f(x) \dif x
+\end{equation*}
+differenzierbar und $\forall x \in (a, b)$ gilt: $F'(x) = f(x)$.
+
+\subsection{Definition Stammfunktion / unbestimmtes Integral}
+Das $F$ aus Satz \ref{Integration:Hauptsatz} heißt \textit{Stammfunktion} von $f$.\\\\
+Hinweis: Für jedes $f$ kann es mehrere Stammfunktionen $F$ geben, die sich je um einen konstanten Faktor $c \in \mathbb{R}$ unterscheiden.
+
+\subsection{Zusammenhang bestimmtes Integral und Stammfunktion}
+Sei $f : [a, b] \rightarrow \mathbb{R}$ stetig und sei $F : [a, b] \rightarrow \mathbb{R}$ eine Stammfunktion von $f$. Dann gilt:
+\begin{equation*}
+	\int_{a}^{b} f(x) \dif x = F(b) - F(a)
+\end{equation*}
+Man schreibt daher auch: 
+\begin{equation*}
+	\int_{a}^{b} f(x) \dif x = F(b) - F(a) = \bigl. F \bigr|_a^b = F(x) \big|_{x=a}^{x=b} = \bigl[F(x)\bigr]_a^b
+\end{equation*}
+
+\addtocounter{subsection}{3}
+\subsection{Partielle Integration}
+Seien $f$ und $g$ stetig und differenzierbar. Dann gilt:
+\begin{equation*}
+	\int_a^b f(x)g'(x) \dif x = \bigl[f(x)g(x)\bigr]_a^b - \int_a^b f'(x)g(x) \dif x
+\end{equation*}
+
+\addtocounter{subsection}{2}
+\subsection{Substitutionsregel}
+Seien $I \subseteq \mathbb{R}$ ein Intervall, $f: I \rightarrow \mathbb{R}$ stetig, $g: [a, b] \rightarrow I$ stetig und differenzierbar und sei $F$ eine Stammfunktion von $f$. Dann gilt:
+\begin{equation*}
+	\int_a^b f(g(t))\cdot g'(t)\dif t = \int_{g(a)}^{g(b)} f(t) \dif t
+\end{equation*}
+
+\subsection*{Definition uneigentliches Integral}
+\addcontentsline{toc}{subsection}{Definition uneigentliches Integral}
+Ein uneigentliches Integral ist ein bestimmtes Integral mit einer Grenze am Rand des Definitionsbereichs, dessen Wert aber endlich ist.\\
+Seien $a, b \in \mathbb{R} \cup \{-\infty, \infty\}$ mit $a < b$, sei $(a, b) \subseteq I \subseteq \mathbb{R}$ und 
+sei $f(x) : I \rightarrow \mathbb{R}$ in $I$ integrierbar. Wir betrachten:
+\begin{equation*}
+	\int_a^b f(x) \dif x
+\end{equation*}
+Es gibt drei Formen eines uneigentlichen Integrals:
+\begin{itemize}
+	\item $a \notin I$ und $b \in I$.
+	\begin{equation*}
+		\int_{a}^{b} f(x) \dif x \coloneqq \lim_{M \rightarrow a} \int_{M}^{b} f(x) \dif x
+	\end{equation*}
+	\item $a \in I$ und $b \notin I$.
+	\begin{equation*}
+		\int_{a}^{b} f(x) \dif x \coloneqq \lim_{M \rightarrow b} \int_{a}^{M} f(x) \dif x
+	\end{equation*}
+	\item $a \notin I$ und $b \notin I$. Dann wähle ein $c \in (a, b)$:
+	\begin{equation*}
+		\int_{a}^{b} f(x) \dif x \coloneqq \int_{a}^{c} f(x) \dif x + \int_c^b f(x) \dif x
+	\end{equation*}
+\end{itemize}
+Wobei es sich dabei wirklich nur dann um ein uneigentliches Integral handelt, wenn die jeweiligen Limes existieren.
 \end{document}
