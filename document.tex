@@ -359,7 +359,7 @@ Nennenwerte Beispiele für Reihen:
 	\item harmonische Reihe $s_n = \sum\limits_{k=1}^{n}\frac{1}{k}$. Divergiert.
 \end{itemize}
 
-\subsection{Notwendige Bedingung für Konvergenz}
+\subsection{Nullfolgenkriterium}
 Falls die Reihe $\sum_{k=0}^{n}a_k$ konvergent, so gilt: $\lim_{n \rightarrow \infty} a_n = 0$.
 
 \subsection{Konvergenz $\Leftrightarrow$ Beschränktheit bei positiven Gliedern}
@@ -471,10 +471,16 @@ Kriterien:
 	\item Minoratenkriterium
 	\item Quotientenkriterium
 	\item Wurzelkriterium*
-	\item Nullfolgenkriterium*
+	\item Nullfolgenkriterium
 	\item Leibnizkriterium
 \end{itemize}
-* Wurden nicht angesprochen
+* Wurde nicht angesprochen
+\subsection*{Exkurs: Wurzelkriterium}
+Sei $(a_n)_n$ eine Folge in $\mathbb{R}$. Wenn:
+\begin{equation*}
+	\exists q \in \mathbb{R} \text{ mit } q < 1 : \exists n_0 \in \mathbb{N}_0 : \forall n \geq n_0 : \sqrt[n]{|a_n|} \leq q
+\end{equation*}
+dann ist $\sum\limits_{n=0}^\infty a_n$ konvergent.
 
 \newpage
 \section{Grenzwerte von Funktionen und Stetigkeit}
