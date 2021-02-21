@@ -351,7 +351,13 @@ Falls $s_n$ reell und geht gegen $+\infty$, so schreiben wir:
 \begin{equation*}
 	\sum_{k=0}^\infty a_k = \infty
 \end{equation*}
-Gleiches gilt auch für $-\infty$.
+Gleiches gilt auch für $-\infty$.\\\\
+Hinweis: $\sum\limits_{k=0}^\infty a_k = \pm \infty \text{ gdw. } \exists n \in \mathbb{N} \;:\;\sum\limits_{k=n}^\infty a_k = \pm \infty$\\\\
+Nennenwerte Beispiele für Reihen:
+\begin{itemize}
+	\item geometrische Reihe $s_n = \sum\limits_{k=0}^{n}z^k$. Konvergiert gdw. $|z| < 1$.
+	\item harmonische Reihe $s_n = \sum\limits_{k=1}^{n}\frac{1}{k}$. Divergiert.
+\end{itemize}
 
 \subsection{Notwendige Bedingung für Konvergenz}
 Falls die Reihe $\sum_{k=0}^{n}a_k$ konvergent, so gilt: $\lim_{n \rightarrow \infty} a_n = 0$.
@@ -402,7 +408,8 @@ Es gilt $\forall n \in \mathbb{N}$:
 
 \subsection{Absolute Konvergenz}
 $\sum\limits_{k=0}^na_k$ mit $a_k \in \mathbb{C}$ heißt absolut konvergent, falls $\sum\limits_{k=0}^n\vert a_k\vert$ konvergent.\\
-Eine Reihe, die konvergiert, aber nicht absolut konvergiert, heißt bedingt konvergent.
+Eine Reihe, die konvergiert, aber nicht absolut konvergiert, heißt bedingt konvergent.\\
+Beispiel: Die alternierende harmonische Reihe $\sum\limits_{k=0}^\infty(-1)^k\frac{1}{k} = \ln(2)$ ist bedingt konvergent.
 
 \subsection{Umordnungssatz}
 Sei $a_k$ eine Folge mit $a_k \in \mathbb{C}$.
@@ -699,8 +706,7 @@ Es gilt: $x^{a+b} = \exp\big((a+b) \cdot \ln(x)\big) = \exp\big(a \ln(x)\big)\cd
 Wir schreiben: $\sqrt[\uproot{1}n]{x} \coloneqq x^\frac{1}{n}$.\\
 Hinweis: Potenzfunktionen sind im Allgemeinen nicht bijektiv, Wurzelfunktion sind daher oft keine vollständige Umkehrfunktion!
 
-\subsection*{Definition Logarithmus zu Basen}
-\addcontentsline{toc}{subsection}{Definition Logarithmus zu Basen}
+\subsection{Definition Logarithmus zu Basen}
 Sei $x, b \in \mathbb{R}$ mit $b > 1$.
 \begin{equation*}
 	\log_b(x) \coloneqq \frac{\ln(x)}{\ln(n)}
@@ -764,6 +770,7 @@ Ausgeschrieben lautet die Definition:
 \begin{equation*}
 	f'(x_0) = \lim_{x\rightarrow x_0} \frac{f(x) - f(x_0)}{x - x_0} = \lim_{h\rightarrow 0} \frac{f(x_0 + h) - f(x_0)}{h}
 \end{equation*}
+Nennenswerte Beispiele: ${a^x}' = a^x \ln(a)$, $\log_a'(x) = \frac{1}{x \ln(a)}$.
 
 \subsection{Definition Differenzierbarkeit einer Funktion}
 Sei $D \subseteq \mathbb{R}$ offen, $f : D \rightarrow \mathbb{R}$.\\
@@ -785,7 +792,8 @@ heißt rechtsseitige Ableitung von $f$ in $x_0$.
 \begin{equation*}
 f'_-(x_0) = \lim_{\stackrel{h\rightarrow 0}{h < 0}}\frac{f(x_0 + h) - f(x_0)}{h}
 \end{equation*}
-heißt linksseitige Ableitung von $f$ in $x_0$.
+heißt linksseitige Ableitung von $f$ in $x_0$.\\\\
+Bekanntes Beispiel: $|x|'_-=-1$ und $|x|'_+=1$.
 
 \subsection*{Notation der Ableitung}
 Die Schreibweise $f'(x_0)$ für die Ableitung von $f$ heißt Lagrange-Notation. Bekannt ist auch die Leibniz-Notation $\frac{\dif f}{\dif x}(x_0)$.
@@ -827,7 +835,7 @@ $g \circ f$ ist in $x_0$ differenzierbar, wenn $f$ in $x_0$ und $g$ in $g(x_0)$ 
 \subsection{Ableitung der Potenzierung}
 Sei $a > 0$ und $h(x) = a^x$ mit $D = \mathbb{R}$. Dann gilt:
 \begin{equation*}
-	\frac{\dif a^x}{\dif x}=a^x\cdot \ln(a)
+	h'(x)=a^x\cdot \ln(a)
 \end{equation*}
 
 \addtocounter{subsection}{2}
