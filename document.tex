@@ -355,7 +355,7 @@ Gleiches gilt auch für $-\infty$.\\\\
 Hinweis: $\sum\limits_{k=0}^\infty a_k = \pm \infty \text{ gdw. } \exists n \in \mathbb{N} \;:\;\sum\limits_{k=n}^\infty a_k = \pm \infty$\\\\
 Nennenwerte Beispiele für Reihen:
 \begin{itemize}
-	\item geometrische Reihe $s_n = \sum\limits_{k=0}^{n}z^k$. Konvergiert gdw. $|z| < 1$.
+	\item geometrische Reihe $s_n = \sum\limits_{k=0}^{n}z^k$. Konvergiert (gegen $\frac{1}{1-z}$) gdw. $|z| < 1$.
 	\item harmonische Reihe $s_n = \sum\limits_{k=1}^{n}\frac{1}{k}$. Divergiert.
 \end{itemize}
 
@@ -365,6 +365,7 @@ Falls die Reihe $\sum_{k=0}^{n}a_k$ konvergent, so gilt: $\lim_{n \rightarrow \i
 \subsection{Konvergenz $\Leftrightarrow$ Beschränktheit bei positiven Gliedern}
 Eine reelle Reihe $s_n$ mit positiven Gliedern ist beschränkt gdw. konvergent.
 
+\pagebreak
 \setcounter{subsection2}{\value{subsection}}
 \section*{Vergleichskriterien für Konvergenz}
 \addcontentsline{toc}{subsection}{Vergleichskriterien für Konvergenz}
@@ -385,12 +386,14 @@ Falls eine Reihe $(s_n)$ hingegen eine divergente Minorante hat, so ist auch $(s
 Eine Reihe heißt divergent, wenn sie nicht konvergent ist.
 
 \subsection{Quotientenkriterium}
-Eine Reihe $\sum_{k=0}^\infty a_k$ konvergiert (absolut), falls
+Eine Reihe $\sum_{k=0}^\infty a_k$ konvergiert absolut, falls
 \begin{equation*}
 	\exists q \in \mathbb{R} \text{ mit } q < 1: \;\; \exists n_0 \geq 0: \;\; \forall k \geq n_0: \;\; \frac{\vert a_{k+1}\vert}{\vert a_k\vert} \leq q
 \end{equation*}
-Wobei $q$ fest sein muss, also $\frac{\vert a_{k+1}\vert}{\vert a_k\vert} < 1$ reicht nicht aus!
+Wobei $q$ fest sein muss, also $\frac{\vert a_{k+1}\vert}{\vert a_k\vert} < 1$ reicht nicht aus!\\
+Gilt hingegen $\frac{\vert a_{k+1}\vert}{\vert a_k\vert} \geq 1$ in der Formel oben, so divergiert die Reihe.
 
+\pagebreak
 \setcounter{subsection2}{\value{subsection}}
 \section*{Alternierende Reihen}
 \addcontentsline{toc}{subsection}{Alternierende Reihen}
@@ -429,6 +432,7 @@ Dann existiert je eine Permutation $\sigma$, sodass
 %
 %\noindent Es gibt auch eine Permutation $\sigma$, sodass $\sum\limits_{n=1}^{\infty}a_{\sigma(n)}$ gegen $+\infty$ konvergiert, eine, sodass es gegen $-\infty$ konvergiert und eine, wo $\limsup \sum\limits_{k=1}^{n}a_{\sigma(k)} \neq \liminf \sum\limits_{k=1}^{n}a_{\sigma(k)}$.
 
+\pagebreak
 \subsection{Doppelreihensatz}
 Seien $a_{i,j} \in \mathbb{C}$ mit $i,j \in \mathbb{N}$. Falls $\sum\limits_{i=0}^{\infty}\sum\limits_{j=0}^\infty\vert a_{i,j}\vert < \infty$, dann konvergiert $\sum\limits_{i=0}^{\infty}\sum\limits_{j=0}^\infty a_{i,j}$ und
 \begin{align*}
@@ -476,11 +480,12 @@ Kriterien:
 \end{itemize}
 * Wurde nicht angesprochen
 \subsection*{Exkurs: Wurzelkriterium}
-Sei $(a_n)_n$ eine Folge in $\mathbb{R}$. Wenn:
+Sei $(a_n)_n$ eine Folge in $\mathbb{R}$. Dann:
 \begin{equation*}
 	\exists q \in \mathbb{R} \text{ mit } q < 1 : \exists n_0 \in \mathbb{N}_0 : \forall n \geq n_0 : \sqrt[n]{|a_n|} \leq q
 \end{equation*}
-dann ist $\sum\limits_{n=0}^\infty a_n$ konvergent.
+dann ist $\sum\limits_{n=0}^\infty a_n$ absolut konvergent.\\
+Gilt in der Formel stattdessen jedoch $\sqrt[n]{|a_n|} \geq 1$, so divergiert die Reihe.
 
 \newpage
 \section{Grenzwerte von Funktionen und Stetigkeit}
