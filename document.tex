@@ -173,7 +173,7 @@ Ein angeordneter Körper $K$ ist vollständig, falls $\forall M \subseteq K$ nac
 $\mathbb{R}$ ist vollständig.
 
 \subsection{Rechenregeln}
-Sein $A, B \in \mathbb{R}$ mit $\sup(A), \sup(B) \in \mathbb{R}$.
+Sein $A, B \subseteq \mathbb{R}$ mit $\sup(A), \sup(B) \in \mathbb{R}$.
 \begin{enumerate}
 	\item $\sup(A + B) = \sup(A) + \sup (B)$\footnote{$A + B = \{a + b \mid a \in A, b \in B\}$}
 	\item $\forall \lambda \geq 0: \sup(\lambda \cdot A) = \lambda \cdot \sup(A)$ \footnote{$\lambda \cdot A = \{\lambda \cdot a \mid a \in A\}$}
@@ -321,7 +321,7 @@ Seien $n_1 < n_2 < ... < n_k \in \mathbb{N}$ gegeben, so heißt $(x_{n_k})$ Teil
 $x \in \mathbb{R}$ heißt Häufungspunkt, falls es eine Teilfolge mit $\lim\limits_{k \rightarrow \infty} x_{n_k} = x$ gibt.
 
 \subsection{Bolzano-Weierstrass}
-Falls $(x_n)$ und reellwertig:
+Falls $(x_n)$ reellwertig und beschränkt:
 \begin{equation*}
 	\lim_{n \rightarrow \infty} x_n = x \text{ gdw. } \liminf_{n \rightarrow \infty} x_n = \limsup_{n \rightarrow \infty} x_n = \lim_{n \rightarrow \infty} x_n
 \end{equation*}
@@ -407,7 +407,7 @@ Eine Reihe, die konvergiert, aber nicht absolut konvergiert, heißt bedingt konv
 \subsection{Umordnungssatz}
 Sei $a_k$ eine Folge mit $a_k \in \mathbb{C}$.
 \begin{equation*}
-	\sum_{k=1}^na_k \text{ konvergiert gdw. } \forall\sigma: \mathbb{N} \rightarrow \mathbb{N} \;:\; \sum_{k=1}^\infty a_{\sigma(k)} = \sum_{k=1}^\infty a_k
+	\sum_{k=1}^na_k \text{ konvergiert absolut gdw. } \forall\sigma: \mathbb{N} \rightarrow \mathbb{N} \;:\; \sum_{k=1}^\infty a_{\sigma(k)} = \sum_{k=1}^\infty a_k \neq \infty
 \end{equation*}
 
 \subsubsection*{Beliebigkeit der Ergebnisse bei Änderung der Summationsreihenfolge}
@@ -441,7 +441,7 @@ wobei $c_m = \sum\limits_{k=0}^ma_kb_{m-k}$ die Definition des Cauchy-Produkts.
 
 \subsection{Exponentialfunktion}
 \begin{equation*}
-	\exp(z) = \sum_{k=0}^\infty\frac{z^k}{k\!} \hspace{1cm}\forall z \in \mathbb{C}
+	\exp(z) = \sum_{k=0}^\infty\frac{z^k}{k!} \hspace{1cm}\forall z \in \mathbb{C}
 \end{equation*}
 Dabei gilt: $\exp(z) = e^z$ mit $e$ die Eulersche Zahl $\forall z \in \mathbb{C}$.
 
@@ -509,9 +509,9 @@ Die Exponentialfunktion $\exp$ ist stetig auf $\mathbb{C}$.
 Seien $f: D_f \rightarrow R$, $g : D_g \rightarrow \mathbb{R}$ und $f(D_f) \subseteq D_g$ \footnote{$f(A) \coloneqq \left\{f(x) \;\vert\; x \in A\right\}$}.\\
 $\forall x \in D_f$: Wenn $f$ stetig in $x$ und $g$ stetig in $f(x)$, so ist auch $g \circ f$ stetig in $x$.
 
-\subsection{Definition linksseitiger / rechtsseitiger Grenzwert / Stetigkeit}
+\subsection{Definition linksseitiger/rechtsseitiger Grenzwert/Stetigkeit}
 Seien $D \subseteq \mathbb{R}$, $f : D \rightarrow \mathbb{R}$ und $a \in D$ nicht isoliert.\\
-$c \in \mathbb{R}$ heißt linksseitiger Grenzwert von $f$ im Punkt $a$ (Schreibweise: $\lim\limits_{x \rightarrow a^-} f(x) = c$)\footnote{alternativ auch $\lim\limits_{x \nearrow a} f(x) = c$ für linksseitigen und $\lim\limits_{x \searrow a} f(x) = c$ für rechtsseitigen Grenzwert}, falls $\forall (x_n)_{n \in \mathbb{N}}$ mit $x_n \in D$, $\forall n \in \mathbb{N}: x_n < a$ und $x_n \rightarrow c$ gilt: $\lim_{n \rightarrow \infty} f(x_n) = c$.\\
+$c \in \mathbb{R}$ heißt linksseitiger Grenzwert von $f$ im Punkt $a$ (Schreibweise: $\lim\limits_{x \rightarrow a^-} f(x) = c$)\footnote{alternativ auch $\lim\limits_{x \nearrow a} f(x) = c$ für linksseitigen und $\lim\limits_{x \searrow a} f(x) = c$ für rechtsseitigen Grenzwert}, falls $\forall (x_n)_{n \in \mathbb{N}}$ mit $x_n \in D$, $\forall n \in \mathbb{N}: x_n < a$ und $x_n \rightarrow c$ gilt: $\lim\limits_{n \rightarrow \infty} f(x_n) = c$.\\
 $f$ heißt linksseitig stetig in $a$, falls $\lim\limits_{x \rightarrow a^-} f(x) = f(a)$.\\\\
 Analog ist der rechtsseitige Grenzwert definiert: $\lim\limits_{x \rightarrow a^+} f(x)$
 
@@ -519,7 +519,7 @@ Analog ist der rechtsseitige Grenzwert definiert: $\lim\limits_{x \rightarrow a^
 \subsection*{Fixpunktiteration}
 \addcontentsline{toc}{subsection}{Fixpunktiteration}
 Sei $f : \mathbb{R} \rightarrow \mathbb{R}$. $x \in \mathbb{R}$ heißt Fixpunkt von $f$, falls $f(x) = x$.\\
-Iterativer Lösungsansatz: $x_{n+1} = f(x_n)$. Dann gilt: Falls $f$ stetig in $D$, $f(D) \subseteq D$ und $x_0 \in D$, so ist $\lim_{n \rightarrow \infty}x_n$ ein Fixpunkt.
+Iterativer Lösungsansatz: $x_{n+1} = f(x_n)$. Dann gilt: Falls $f$ stetig in $D$, $f(D) \subseteq D$ und $x_0 \in D$, so ist $\lim\limits_{n \rightarrow \infty}x_n$ ein Fixpunkt.
 
 \newpage
 \section{Komplexe Zahlen und trigonometrische Funktionen}
@@ -539,6 +539,7 @@ $\pi \approx 3,14159265412$.
 
 \subsection*{Rechenregeln für Sinus und Cosinus}
 \addcontentsline{toc}{subsection}{Rechenregeln für Sinus und Cosinus}
+Es gilt $\forall x \in \mathbb{C}$:
 \begin{align*}
 	\sin -x                              & = -\sin x  &  & \text{Punktsymmetrie}  &  &  &  &  \\
 	\cos -x                              & = \cos x   &  & \text{Achsensymmetrie} &  \\
@@ -552,7 +553,7 @@ Zudem folgt aus dem Satz des Pythagoras:
 
 \subsection*{Rechenregeln für komplexe Exponentialfunktion}
 \addcontentsline{toc}{subsection}{Rechenregeln für komplexe Exponentialfunktion}
-Sei $x \in \mathbb{R}$ und $z = \exp ix = e^{ix}$.
+Sei $x \in \mathbb{R}$ und $z \coloneqq \exp ix = e^{ix}$.
 \begin{align*}
 	\vert e^{ix}\vert & = e^{ix}\overline{e^{ix}} \\
 	                  & = e^{ix}e^{\overline{ix}} \\
@@ -755,8 +756,9 @@ Hinweis: $D$ ist offen falls alle $x_0 \in D$ innere Punkte von $D$ sind.
 Sei $D \subseteq \mathbb{R}, f: D \rightarrow \mathbb{R}$ und $x_0$ innerer Punkt in $D$.\\
 $f$ heißt Differenzierbar in $x_0$, wenn:
 \begin{equation*}
-	\exists f'(x_0) \;:\; x \in D \text{ mit } \lim_{n \rightarrow \infty}x = x_0 \;:\; f(x) = f(x_0) + f'(x_0)(x-x_0)+o(x-x_0)
+	\exists f'(x_0) \;:\; x \in D \text{ mit } \lim_{n \rightarrow \infty}x = x_0\footnotemark \;:\; f(x) = f(x_0) + f'(x_0)(x-x_0)+o(x-x_0)
 \end{equation*}
+\footnotetext{$\displaystyle\lim_{n \rightarrow \infty} x = x_0$ heißt: $x$ ist unendlich nahe an $x_0$.}
 $f'(x)$ heißt die Ableitung von $f$ und beschreibt die Steigung der Tangenten an $f(x)$.\\
 Ausgeschrieben lautet die Definition:
 \begin{equation*}
@@ -771,7 +773,7 @@ $f$ heißt differenzierbar in $D$, falls $f$ differenzierbar in $x$, $\forall x 
 \subsection{Differenzierbarkeit $\rightarrow$ Stetigkeit}
 Sei $D \subseteq \mathbb{R}$, $x_0 \in D$ und $f : D \rightarrow \mathbb{R}$ differenzierbar in $x_0$.\\
 Dann ist $f$ stetig in $x_0$.\\\\
-\underline{Wichtig:} Die Umkehrung gilt nicht, d.h. aus Stetigkeit lässt nicht auf Differenzierbarkeit schließen! Bsp: $f(x) = \vert x\vert$ an $x = 0$
+\underline{Wichtig:} Die Umkehrung gilt nicht, d.h. Stetigkeit lässt nicht auf Differenzierbarkeit schließen! Bsp: $f(x) = \vert x\vert$ an $x = 0$
 
 \stepcounter{subsection}
 \subsection{Definition rechts- \& linksseitige Ableitung}
@@ -786,7 +788,7 @@ f'_-(x_0) = \lim_{\stackrel{h\rightarrow 0}{h < 0}}\frac{f(x_0 + h) - f(x_0)}{h}
 heißt linksseitige Ableitung von $f$ in $x_0$.
 
 \subsection*{Notation der Ableitung}
-Die Schreibweise $f'(x_0)$ für die Ableitung von $f$ heißt Lagrange-Notation. Bekannt ist auch die Leibniz-Notation $\frac{df}{dx}(x_0)$.
+Die Schreibweise $f'(x_0)$ für die Ableitung von $f$ heißt Lagrange-Notation. Bekannt ist auch die Leibniz-Notation $\frac{\dif f}{\dif x}(x_0)$.
 
 \subsection*{Definition Differentialoperator}
 Sei $I$ ein offenes Intervall.\\
@@ -825,7 +827,7 @@ $g \circ f$ ist in $x_0$ differenzierbar, wenn $f$ in $x_0$ und $g$ in $g(x_0)$ 
 \subsection{Ableitung der Potenzierung}
 Sei $a > 0$ und $h(x) = a^x$ mit $D = \mathbb{R}$. Dann gilt:
 \begin{equation*}
-	\frac{da^x}{x}=a^x\cdot \ln(a)
+	\frac{\dif a^x}{\dif x}=a^x\cdot \ln(a)
 \end{equation*}
 
 \addtocounter{subsection}{2}
@@ -1069,7 +1071,7 @@ Sei $f : [a,b] \rightarrow \mathbb{R}$ stetig. Es gilt:
 	\begin{equation*}
 		\int_a^bf(x)\dif x \leq \int_a^bg(x)\dif x
 	\end{equation*}
-	\item \textbf{Zerlegbarkeit}\\
+	\item \textbf{Zerlegbarkeit}\label{Integration:Eigentschaften_des_Integrals:Zerlegbarkeit}\\
 	Sei $a < c < b$ und $f : [a,b] \rightarrow\mathbb{R}$.\\
 	$f$ ist integrierbar auf $[a,b]$ gdw. $f$ auf $[a,c]$ und auf $[c,b]$ integrierbar.\\
 	Es gilt dann:
@@ -1083,7 +1085,7 @@ Sei $a \leq b$ und $f: [a,b] \rightarrow \mathbb{R}$. Dann definieren wir:\\
 \begin{equation*}
 	\int_b^af(x)\dif x \coloneqq - \int_a^bf(x)\dif x
 \end{equation*}
-Damit gilt die Zerlegbarkeit auch für alle $a,b,c \in \mathbb{R}$.\\\\
+Damit gilt die \hyperref[Integration:Eigentschaften_des_Integrals:Zerlegbarkeit]{Zerlegbarkeit} auch für alle $a,b,c \in \mathbb{R}$.\\\\
 Aus der Definition folgt:
 \begin{equation*}
 	\int_{a}^{a}f(x) \dif x = 0
